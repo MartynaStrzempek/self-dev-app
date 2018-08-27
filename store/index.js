@@ -1,10 +1,10 @@
 import Vuex from 'vuex';
-import exampleModule from "./exampleModule";
+import goals from "./goals";
 
 const createStore = () => {
   return new Vuex.Store({
     modules: {
-      exampleModule
+      goals
     }
   })
 };

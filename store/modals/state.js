@@ -1,4 +1,3 @@
 export default {
-  addingModalVisibility: false,
-  editingModalVisibility: false
+  isModalOpen: false,
 }

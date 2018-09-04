@@ -1,16 +1,20 @@
 <template>
   <div class="container">
-    <adding-modal :visibility="addingModalVisibility" />
+    <modal
+      :visibility="modalVisibility"
+      :title="modalTitle"
+      :editing="editing"
+      :edited-goal="currentGoal"/>
     <div class="row header">
       <div v-if="index === currentGoalId" v-for="(goal, index) in goals" class="goal-name col-sm-9" :key="index">
-        <h1>{{ goal.name }}</h1>
+        <h1>{{ goal.goalName }}</h1>
       </div>
       <div class="buttons col-sm-3">
         <div class="add-button">
-          <el-button type="primary" @click="addingModalVisibility = true">Add</el-button>
+          <el-button type="primary" @click="addGoal">Add</el-button>
         </div>
         <div class="edit-button">
-          <el-button plain>Edit</el-button>
+          <el-button plain @click="editGoal">Edit</el-button>
         </div>
       </div>
     </div>
@@ -31,21 +35,27 @@
 
 <script>
 import CalendarChart from '../../components/calendarChart/calendarChart.vue';
-import AddingModal from '../../components/addingModal/addingModal.vue';
+import Modal from '../../components/modal/modal.vue';
 import * as ACTIONS from '../../store/actionTypes';
 export default {
   data() {
     return {
-
+      editing: false,
     }
   },
   components: {
     CalendarChart,
-    AddingModal
+    Modal
   },
   computed: {
+    modalVisibility() {
+      return this.$store.getters["getModalVisibility"];
+    },
     goals() {
       return this.$store.getters["getGoals"];
+    },
+    currentGoal() {
+      return this.$store.getters["getTargetGoal"](this.currentGoalId);
     },
     currentGoalId: {
       get() {
@@ -55,21 +65,10 @@ export default {
         this.$store.dispatch(ACTIONS.SET_CURRENT_GOAL_ID, newValue)
       }
     },
-    addingModalVisibility: {
-      get() {
-        return this.$store.getters["getAddingModalVisibility"];
-      },
-      set(newValue) {
-        if (newValue === true) this.$store.dispatch(ACTIONS.OPEN_ADDING_MODAL);
-        else this.$store.dispatch(ACTIONS.CLOSE_ADDING_MODAL);
-      }
+    modalTitle() {
+      if (this.editing) return "Edit the goal";
+      else return "Add the goal"
     }
-    // isLeftArrowDisabled() {
-    //   return true;
-    // },
-    // isRightArrowDisabled() {
-    //   return this.currentGoal === this.goals.length;
-    // }
   },
   methods: {
     nextGoal() {
@@ -82,6 +81,14 @@ export default {
         this.currentGoalId--;
       }
     },
+    addGoal() {
+      this.$store.dispatch(ACTIONS.OPEN_MODAL);
+      this.editing = false;
+    },
+    editGoal() {
+      this.$store.dispatch(ACTIONS.OPEN_MODAL);
+      this.editing = true;
+    }
   }
 }
 </script>

@@ -1,13 +1,13 @@
 <template>
   <div>
-    {{ subGoal }}
+    CHART
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    subGoal: String
+
   }
 }
 </script>

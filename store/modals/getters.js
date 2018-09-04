@@ -1,4 +1,3 @@
 export default {
-  getAddingModalVisibility: state => state.addingModalVisibility,
-  getEditingModalVisibility: state => state.editingModalVisibility,
+  getModalVisibility: state => state.isModalOpen,
 }

@@ -1,9 +1,9 @@
 import Vue from 'vue';
 export default {
-  openAddingModal(state) {
-    Vue.set(state, "addingModalVisibility", true);
+  openModal(state) {
+    Vue.set(state, "isModalOpen", true);
   },
-  closeAddingModal(state) {
-    Vue.set(state, "addingModalVisibility", false);
+  closeModal(state) {
+    Vue.set(state, "isModalOpen", false);
   }
 }

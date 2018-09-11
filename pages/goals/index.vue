@@ -19,11 +19,11 @@
       </div>
     </div>
     <div class="row middle-area">
-      <div class="left-arrow col-lg-2" @click="previousGoal">
+      <div class="left-arrow col-lg-1" @click="previousGoal">
         <i class="fas fa-angle-left"></i>
       </div>
-      <calendar-chart v-if="index === currentGoalId" v-for="(goal, index) in goals" :key="index" :sub-goal="goal.subGoalName" class="col-lg-8" />
-      <div class="right-arrow col-lg-2" @click="nextGoal">
+      <calendar-chart v-if="index === currentGoalId" v-for="(goal, index) in goals" :key="index" :sub-goal="goal.subGoalName" class="col-lg-10" />
+      <div class="right-arrow col-lg-1" @click="nextGoal">
         <i class="fas fa-angle-right"></i>
       </div>
     </div>

@@ -22,13 +22,19 @@
       <div class="left-arrow col-lg-1" @click="previousGoal">
         <i class="fas fa-angle-left"></i>
       </div>
-      <calendar-chart v-if="index === currentGoalId" v-for="(goal, index) in goals" :key="index" :sub-goal="goal.subGoalName" class="col-lg-10" />
+      <calendar-chart
+        v-if="index === currentGoalId"
+        v-for="(goal, index) in goals"
+        :key="index"
+        :sub-goal="goal.subGoalName"
+        class="col-lg-10" />
       <div class="right-arrow col-lg-1" @click="nextGoal">
         <i class="fas fa-angle-right"></i>
       </div>
     </div>
-    <div class="row">
-      <div class="statistic-chart">Statistica</div>
+    <div class="row bottom justify-content-lg-around">
+      <todays-result-box class="todays-result-box col-lg-5" />
+      <div class="statistic-chart col-lg-5">Statistica</div>
     </div>
   </div>
 </template>
@@ -36,6 +42,7 @@
 <script>
 import CalendarChart from '../../components/calendarChart/calendarChart.vue';
 import Modal from '../../components/modal/modal.vue';
+import TodaysResultBox from '../../components/todaysResultBox/todaysResultBox.vue';
 import * as ACTIONS from '../../store/actionTypes';
 export default {
   data() {
@@ -45,7 +52,8 @@ export default {
   },
   components: {
     CalendarChart,
-    Modal
+    Modal,
+    TodaysResultBox
   },
   computed: {
     modalVisibility() {
@@ -115,6 +123,19 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+  }
+  .left-arrow {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+.bottom {
+  .todays-result-box {
+    margin-bottom: 50px;
+  }
+  .statistic-chart {
+    border: 1px solid black;
   }
 }
 .disabled {

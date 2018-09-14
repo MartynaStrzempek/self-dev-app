@@ -8,8 +8,16 @@ export default {
       scoreForReward: 101,
       results: [
         {
-          day: "23.08",
-          status: "Done"
+          id: "12-09-2018",
+          status: "notDone"
+        },
+        {
+          id: "13-09-2018",
+          status: ""
+        },
+        {
+          id: "14-09-2018",
+          status: "done"
         }
       ]
     },
@@ -21,7 +29,7 @@ export default {
       scoreForReward: 803,
       results: [
         {
-          day: "23.08",
+          id: "23-08-2018",
           status: "Not done"
         }
       ]
@@ -34,7 +42,7 @@ export default {
       scoreForReward: 55,
       results: [
         {
-          day: "03.09",
+          id: "14-09-2018",
           status: "Done"
         }
       ]

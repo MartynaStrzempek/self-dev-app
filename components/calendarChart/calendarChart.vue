@@ -2,7 +2,7 @@
   <div class="container">
     <table id="table">
       <tr v-for="(dayId, rowId) in dayIds" :key="rowId" class="row">
-        <td v-if="day.dayId === rowId" v-for="(day, colId) in days" :key="colId" class="col">
+        <td v-if="day.dayId === rowId" v-for="(day, colId) in days" :key="colId" class="col" :style="style(day.id)">
           {{ day.displayDay }}
           <span class="popup">{{ day.displayDate }}</span>
         </td>
@@ -22,9 +22,26 @@ export default {
     }
   },
   props: {
-
+    goal: Array
   },
   methods: {
+    style(id) {
+      let bg;
+      if (id === '13-09-2018' || id === '12-09-2018' || id === '14-09-2018') {
+        let status = this.goal[0].results.filter(result => result.id === id)[0].status;
+        console.log(status)
+        if (status === "" || status === "unchecked") {
+          bg = "#eee";
+        } else if (status === "notDone") {
+          bg = "rgba(255, 0, 0, 0.8)";
+        } else if (status === "subgoalDone") {
+          bg = "orange";
+        } else if (status === "done") {
+          bg = "rgba(0, 255, 0, 0.8)";
+        }
+      }
+      return `background-color: ${bg}`;
+    },
     getMonths() {
       const today = new Date();
       let dayBefore, day, month, year, id, dayId, displayDay, displayDate, amount = 180;

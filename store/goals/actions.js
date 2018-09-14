@@ -8,5 +8,8 @@ export default {
   },
   editGoal({ commit }, editedGoal) {
     commit(MUTATIONS.EDIT_GOAL, editedGoal);
+  },
+  setStatus({ commit }, payload) {
+    commit(MUTATIONS.SET_STATUS, payload);
   }
 }

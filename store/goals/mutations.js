@@ -18,5 +18,14 @@ export default {
   editGoal(state, payload) {
     const { editedGoalId, editedGoal } = payload;
     state.goals.splice(editedGoalId, 1, { ...editedGoal, id: editedGoalId, results: [] });
+  },
+  setStatus(state, payload) {
+    const { goalId, resultId, status } = payload;
+    console.log(payload)
+    let goal = state.goals.filter(goal => goal.id === goalId);
+    console.log(goal)
+    state.goals
+      .filter(goal => goal.id === goalId)[0].results
+      .filter(result => result.id === resultId)[0].status = status;
   }
 }

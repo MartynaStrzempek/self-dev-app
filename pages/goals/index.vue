@@ -27,13 +27,14 @@
         v-for="(goal, index) in goals"
         :key="index"
         :sub-goal="goal.subGoalName"
+        :goal="currentGoal"
         class="col-lg-10" />
       <div class="right-arrow col-lg-1" @click="nextGoal">
         <i class="fas fa-angle-right"></i>
       </div>
     </div>
     <div class="row bottom justify-content-lg-around">
-      <todays-result-box class="todays-result-box col-lg-5" />
+      <todays-result-box class="todays-result-box col-lg-5" :goalId="currentGoalId"/>
       <div class="statistic-chart col-lg-5">Statistica</div>
     </div>
   </div>

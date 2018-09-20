@@ -21,11 +21,15 @@ export default {
   },
   setStatus(state, payload) {
     const { goalId, resultId, status } = payload;
-    console.log(payload)
-    let goal = state.goals.filter(goal => goal.id === goalId);
-    console.log(goal)
-    state.goals
-      .filter(goal => goal.id === goalId)[0].results
-      .filter(result => result.id === resultId)[0].status = status;
+    let goal = state.goals.filter(goal => goal.id === goalId)[0];
+    let result = goal.results.filter(result => result.id === resultId)[0];
+    if (result) {
+      result.status = status;
+    } else {
+      goal.results.push({
+        id: resultId,
+        status: status
+      })
+    }
   }
 }

@@ -5,5 +5,11 @@ export default {
   },
   closeModal(state) {
     Vue.set(state, "isModalOpen", false);
+  },
+  openSetResultModal(state) {
+    Vue.set(state, "isSetResultModalOpen", true);
+  },
+  closeSetResultModal(state) {
+    Vue.set(state, "isSetResultModalOpen", false);
   }
 }

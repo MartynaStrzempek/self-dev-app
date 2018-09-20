@@ -1,8 +1,18 @@
 <template>
   <div class="container">
+    <set-result-modal
+      :visibility="setResultModalVisibility"
+      :goal-id="goal.id"
+      :result-id="clickedDayId"/>
     <table id="table">
       <tr v-for="(dayId, rowId) in dayIds" :key="rowId" class="row">
-        <td v-if="day.dayId === rowId" v-for="(day, colId) in days" :key="colId" class="col" :style="style(day.id)">
+        <td
+          v-if="day.dayId === rowId"
+          v-for="(day, colId) in days"
+          :key="colId"
+          class="col"
+          @click="openModal(day.id)"
+          :style="style(day.id)">
           {{ day.displayDay }}
           <span class="popup">{{ day.displayDate }}</span>
         </td>
@@ -12,25 +22,40 @@
 </template>
 
 <script>
+import SetResultModal from "../../components/setResultModal/setResultModal.vue";
+import * as ACTIONS from "../../store/actionTypes";
 export default {
   data() {
     return {
       dayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       dayIds: [0, 1, 2, 3, 4, 5, 6],
-      days: []
+      days: [],
+      clickedDayId: null,
+    }
+  },
+  computed: {
+    setResultModalVisibility() {
+      return this.$store.getters["getSetResultModalVisibility"];
     }
   },
   props: {
-    goal: Array
+    goal: Object
+  },
+  components: {
+    SetResultModal,
   },
   methods: {
+    openModal(dayId){
+      this.clickedDayId = dayId;
+      this.$store.dispatch(ACTIONS.OPEN_SET_RESULT_MODAL);
+    },
     style(id) {
       let bg;
-      if (id === '13-09-2018' || id === '12-09-2018' || id === '14-09-2018') {
-        let status = this.goal[0].results.filter(result => result.id === id)[0].status;
-        console.log(status)
-        if (status === "" || status === "unchecked") {
+      let result = this.goal.results.filter(result => result.id === id)[0];
+      if (result) {
+        let status = result.status;
+        if (status === "unchecked") {
           bg = "#eee";
         } else if (status === "notDone") {
           bg = "rgba(255, 0, 0, 0.8)";
@@ -39,7 +64,10 @@ export default {
         } else if (status === "done") {
           bg = "rgba(0, 255, 0, 0.8)";
         }
+      } else {
+        bg = '#eee';
       }
+
       return `background-color: ${bg}`;
     },
     getMonths() {

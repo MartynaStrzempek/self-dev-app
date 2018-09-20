@@ -34,7 +34,9 @@
       </div>
     </div>
     <div class="row bottom justify-content-lg-around">
-      <todays-result-box class="todays-result-box col-lg-5" :goalId="currentGoalId"/>
+      <todays-result-box
+        class="todays-result-box col-lg-5"
+        :goalId="currentGoalId"/>
       <div class="statistic-chart col-lg-5">Statistica</div>
     </div>
   </div>

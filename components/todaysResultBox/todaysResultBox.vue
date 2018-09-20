@@ -21,6 +21,19 @@ export default {
   props: {
     goalId: Number,
   },
+  computed: {
+    // todaysStatus: {
+    //   get() {
+    //     return this.$store.getters["getTodaysResult"];
+    //   },
+    //   set(newValue) {
+    //
+    //   }
+    // }
+  },
+  mounted() {
+    this.todaysStatus = this.$store.getters["getTodaysResult"];
+  },
   methods: {
     createResultId() {
       const today = new Date();

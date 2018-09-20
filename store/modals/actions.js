@@ -5,5 +5,11 @@ export default {
   },
   closeModal({ commit }) {
     commit(MUTATIONS.CLOSE_MODAL);
+  },
+  openSetResultModal({ commit }) {
+    commit(MUTATIONS.OPEN_SET_RESULT_MODAL);
+  },
+  closeSetResultModal({ commit }) {
+    commit(MUTATIONS.CLOSE_SET_RESULT_MODAL);
   }
 }

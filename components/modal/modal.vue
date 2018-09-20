@@ -16,9 +16,9 @@
     </el-form>
     <p class="validation-text" :class="{ hidden: isFilled }">To Add the goal You must fill in name of the goal and name of the subgoal</p>
     <span slot="footer" class="dialog-footer">
-    <el-button @click="cancel">Cancel</el-button>
-    <el-button type="primary" @click="save">Save</el-button>
-  </span>
+      <el-button @click="cancel">Cancel</el-button>
+      <el-button type="primary" @click="save">Save</el-button>
+    </span>
   </el-dialog>
 </template>
 
@@ -40,14 +40,14 @@ export default {
     visibility: Boolean,
     title: String,
     editing: Boolean,
-    editedGoal: Array
+    editedGoal: Object
   },
   methods: {
     async save(){
       if (this.form.goalName.length > 0 && this.form.subGoalName.length > 0) {
         if (this.editing) await this.$store.dispatch(ACTIONS.EDIT_GOAL, {
           editedGoal: this.form,
-          editedGoalId: this.editedGoal[0].id
+          editedGoalId: this.editedGoal.id
         });
         else await this.$store.dispatch(ACTIONS.ADD_GOAL, this.form);
 
@@ -74,10 +74,10 @@ export default {
       console.log(this.editing)
       if (this.editing) {
         this.form = {
-          goalName: this.editedGoal[0].goalName,
-          subGoalName: this.editedGoal[0].subGoalName,
-          reward: this.editedGoal[0].reward,
-          scoreForReward: this.editedGoal[0].scoreForReward
+          goalName: this.editedGoal.goalName,
+          subGoalName: this.editedGoal.subGoalName,
+          reward: this.editedGoal.reward,
+          scoreForReward: this.editedGoal.scoreForReward
         }
       } else {
         this.form = {

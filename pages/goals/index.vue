@@ -35,6 +35,9 @@
     </div>
     <div class="row bottom justify-content-lg-around">
       <todays-result-box
+        v-if="index === currentGoalId"
+        v-for="(goal, index) in goals"
+        :key="index"
         class="todays-result-box col-lg-5"
         :goalId="currentGoalId"/>
       <div class="statistic-chart col-lg-5">Statistica</div>

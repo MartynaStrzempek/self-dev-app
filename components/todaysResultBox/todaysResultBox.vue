@@ -21,19 +21,6 @@ export default {
   props: {
     goalId: Number,
   },
-  computed: {
-    // todaysStatus: {
-    //   get() {
-    //     return this.$store.getters["getTodaysResult"];
-    //   },
-    //   set(newValue) {
-    //
-    //   }
-    // }
-  },
-  mounted() {
-    this.todaysStatus = this.$store.getters["getTodaysResult"];
-  },
   methods: {
     createResultId() {
       const today = new Date();
@@ -60,7 +47,6 @@ export default {
     }
   }
 }
-//ustawic watcha na todaysResult i po zmianie ma sie wykonac mutacja resulta konkretnego goal'a - ma go znalezc po id stworzonym z getDate() czyli dzis
 </script>
 
 <style scoped lang="scss">

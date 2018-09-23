@@ -6,3 +6,4 @@ export const CLOSE_MODAL = "closeModal";
 export const OPEN_SET_RESULT_MODAL = "openSetResultModal";
 export const CLOSE_SET_RESULT_MODAL = "closeSetResultModal";
 export const SET_STATUS = "setStatus";
+export const SET_NOTE = "setNote";

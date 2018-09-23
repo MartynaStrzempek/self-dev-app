@@ -31,5 +31,11 @@ export default {
         status: status
       })
     }
+  },
+  setNote(state, payload) {
+    const { goalId, resultId, note } = payload;
+    let goal = state.goals.filter(goal => goal.id === goalId)[0];
+    let result = goal.results.filter(result => result.id === resultId)[0];
+    result.note = note;
   }
 }

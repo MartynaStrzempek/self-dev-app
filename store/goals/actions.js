@@ -11,5 +11,8 @@ export default {
   },
   setStatus({ commit }, payload) {
     commit(MUTATIONS.SET_STATUS, payload);
+  },
+  setNote({ commit }, payload) {
+    commit(MUTATIONS.SET_NOTE, payload);
   }
 }

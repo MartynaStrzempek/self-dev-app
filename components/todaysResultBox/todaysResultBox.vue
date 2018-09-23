@@ -1,25 +1,35 @@
 <template>
   <div class="box">
     <div class="title">Select today's result</div>
-    <div class="radio-buttons">
-      <el-radio class="radio-button" v-model="todaysStatus" label="done">Done</el-radio>
-      <el-radio class="radio-button" v-model="todaysStatus" label="subgoalDone">Subgoal done</el-radio>
-      <el-radio class="radio-button" v-model="todaysStatus" label="notDone">Not done</el-radio>
-      <el-radio class="radio-button" v-model="todaysStatus" label="unchecked">I don't remember</el-radio>
+    <div class="body">
+      <div class="radio-buttons">
+        <el-radio class="radio-button" v-model="todaysStatus" label="done">Done</el-radio>
+        <el-radio class="radio-button" v-model="todaysStatus" label="subgoalDone">Subgoal done</el-radio>
+        <el-radio class="radio-button" v-model="todaysStatus" label="notDone">Not done</el-radio>
+        <el-radio class="radio-button" v-model="todaysStatus" label="unchecked">I don't remember</el-radio>
+      </div>
+      <note-textarea :class="{ hidden: isGoalDone }" :resultId="createResultId()"/>
     </div>
   </div>
 </template>
 
 <script>
 import * as ACTIONS from "../../store/actionTypes.js";
+import NoteTextarea from "../../components/NoteTextarea/NoteTextarea.vue";
 export default {
   data() {
     return {
-      todaysStatus: ''
+      todaysStatus: '',
+      isGoalDone: true,
     }
   },
-  props: {
-    goalId: Number,
+  computed: {
+    goalId() {
+      return this.$store.getters["getCurrentGoalId"];
+    },
+  },
+  components: {
+    NoteTextarea
   },
   methods: {
     createResultId() {
@@ -39,11 +49,12 @@ export default {
   },
   watch: {
     todaysStatus: function() {
+      this.isGoalDone = this.todaysStatus !== "notDone";
       this.$store.dispatch(ACTIONS.SET_STATUS, {
         goalId: this.goalId,
         resultId: this.createResultId(),
         status: this.todaysStatus
-      })
+      });
     }
   }
 }
@@ -63,14 +74,21 @@ export default {
     font-size: 120%;
     font-weight: bold;
   }
-  .radio-buttons {
+  .body {
     display: flex;
-    flex-direction: column;
-    padding: 40px;
-    .radio-button {
-      margin: 7px 0;
-      font-size: 16px;
+    align-items: center;
+    .radio-buttons {
+      display: flex;
+      flex-direction: column;
+      padding: 40px;
+      .radio-button {
+        margin: 7px 0;
+        font-size: 16px;
+      }
     }
   }
+}
+.hidden {
+  display: none;
 }
 </style>

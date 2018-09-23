@@ -9,7 +9,7 @@ export default {
       results: [
         {
           id: "12-09-2018",
-          status: "notDone"
+          status: "notDone",
         },
         {
           id: "13-09-2018",

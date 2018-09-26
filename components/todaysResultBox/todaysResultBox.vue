@@ -80,7 +80,7 @@ export default {
     .radio-buttons {
       display: flex;
       flex-direction: column;
-      padding: 40px;
+      padding: 30px 20px;
       .radio-button {
         margin: 7px 0;
         font-size: 16px;

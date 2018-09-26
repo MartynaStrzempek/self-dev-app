@@ -15,7 +15,9 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.2.0/css/all.css' }
+      { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.2.0/css/all.css' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Niconne' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Montserrat' }
     ],
     script: [
       { src: 'https://cdn.zingchart.com/zingchart.min.js' },
@@ -26,13 +28,14 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#FFFFFF' },
+  loading: { color: '#00c8eb' },
 
   /*
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    'assets/main.css'
   ],
 
   /*

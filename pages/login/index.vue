@@ -1,3 +1,13 @@
 <template>
-  <h1>login</h1>
+  <h1 @click="login">login</h1>
 </template>
+
+<script>
+export default {
+  methods: {
+    login() {
+      this.$store.commit("setLoginState", true);
+    }
+  }
+}
+</script>

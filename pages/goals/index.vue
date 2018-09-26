@@ -109,10 +109,13 @@ export default {
 
 <style scoped lang="scss">
 .header {
-  padding-top: 30px;
+  padding-top: 50px;
   .goal-name {
     display: flex;
     justify-content: center;
+    h1 {
+      margin: 0;
+    }
   }
   .buttons {
     display: flex;
@@ -121,7 +124,7 @@ export default {
   }
 }
 .middle-area {
-  padding: 100px 0;
+  padding: 50px 0 70px 0;
   .right-arrow, .left-arrow {
     font-size: 300%;
   }

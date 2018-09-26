@@ -56,6 +56,9 @@ export default {
         font-size: 125%;
         text-decoration: none;
       }
+      .logout:hover {
+        cursor: pointer;
+      }
       p {
         margin: 0;
       }

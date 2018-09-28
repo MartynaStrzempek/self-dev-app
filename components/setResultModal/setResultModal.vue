@@ -23,7 +23,7 @@
 
 <script>
 import * as ACTIONS from "../../store/actionTypes";
-import NoteTextarea from "../../components/NoteTextarea/NoteTextarea.vue";
+import NoteTextarea from "../../components/noteTextarea/noteTextarea.vue";
 export default {
   data() {
     return {

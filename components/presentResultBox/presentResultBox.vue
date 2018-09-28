@@ -3,10 +3,10 @@
     <div class="title">Select today's result</div>
     <div class="body">
       <div class="radio-buttons">
-        <el-radio class="radio-button" v-model="todaysStatus" label="done">Done</el-radio>
-        <el-radio class="radio-button" v-model="todaysStatus" label="subgoalDone">Subgoal done</el-radio>
-        <el-radio class="radio-button" v-model="todaysStatus" label="notDone">Not done</el-radio>
-        <el-radio class="radio-button" v-model="todaysStatus" label="unchecked">I don't remember</el-radio>
+        <el-radio class="radio-button" v-model="presentStatus" label="done">Done</el-radio>
+        <el-radio class="radio-button" v-model="presentStatus" label="subgoalDone">Subgoal done</el-radio>
+        <el-radio class="radio-button" v-model="presentStatus" label="notDone">Not done</el-radio>
+        <el-radio class="radio-button" v-model="presentStatus" label="unchecked">I don't remember</el-radio>
       </div>
       <note-textarea :class="{ hidden: isGoalDone }" :resultId="createResultId()"/>
     </div>
@@ -15,11 +15,11 @@
 
 <script>
 import * as ACTIONS from "../../store/actionTypes.js";
-import NoteTextarea from "../../components/NoteTextarea/NoteTextarea.vue";
+import NoteTextarea from "../../components/noteTextarea/noteTextarea.vue";
 export default {
   data() {
     return {
-      todaysStatus: '',
+      presentStatus: '',
       isGoalDone: true,
     }
   },
@@ -48,12 +48,12 @@ export default {
     }
   },
   watch: {
-    todaysStatus: function() {
-      this.isGoalDone = this.todaysStatus !== "notDone";
+    presentStatus: function() {
+      this.isGoalDone = this.presentStatus !== "notDone";
       this.$store.dispatch(ACTIONS.SET_STATUS, {
         goalId: this.goalId,
         resultId: this.createResultId(),
-        status: this.todaysStatus
+        status: this.presentStatus
       });
     }
   }

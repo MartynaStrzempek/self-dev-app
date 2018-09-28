@@ -3,12 +3,12 @@
    <div class="row d-flex align-items-center">
      <div class="registration col-lg-6 d-flex justify-content-start align-items-center">
        <div class="col-lg-9">
-         <login :isLogin="false" title="Register yourself!" />
+         <login-mask :isLogin="false" title="Register yourself!" />
        </div>
      </div>
      <div class="login col-lg-6 d-flex justify-content-end align-items-center">
        <div class="col-lg-9">
-         <login :isLogin="true" title="Do You have an account?" />
+         <login-mask :isLogin="true" title="Do You have an account?" />
        </div>
      </div>
    </div>
@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import Login from "../../components/Login/Login.vue";
+import LoginMask from "../../components/loginMask/loginMask.vue";
 export default {
   components: {
-    Login,
+    LoginMask,
   },
   methods: {
 

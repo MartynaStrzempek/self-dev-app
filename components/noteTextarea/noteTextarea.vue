@@ -1,7 +1,7 @@
 <template>
   <div class="textarea-wrapper">
-    <p :class="message.class">{{ message.text }}</p>
-    <textarea rows="4" cols="30" class="text-area" v-model="note"></textarea>
+    <p :class="message.class" class="message-text">{{ message.text }}</p>
+    <textarea rows="4" cols="28" class="text-area" v-model="note"></textarea>
     <i class="fas fa-check-square icon" :class="{ green: isNoteSaved }" @click="saveNote"></i>
   </div>
 </template>
@@ -46,13 +46,16 @@ export default {
     position: absolute;
     bottom: 5px;
     right: 0;
-    color: #7f828b;
+    color: #9fa5ad;
     font-size: 120%;
     &:hover {
-      color: rgba(0, 255, 0, 0.8);
+      color: rgba(0, 255, 0, 0.4);
       cursor: pointer;
     }
   }
+}
+.message-text {
+  font-size: 95%;
 }
 .green {
   color: rgba(0, 255, 0, 0.8);

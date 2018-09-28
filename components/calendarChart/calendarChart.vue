@@ -14,7 +14,8 @@
           @click="openModal(day.id)"
           :style="style(day.id)">
           {{ day.displayDay }}
-          <span class="popup">{{ day.displayDate }}</span>
+          <span class="date-popup">{{ day.displayDate }}</span>
+          <span class="note-popup" v-if="getTargetNote(goal.id, day.id) !== null">{{ getTargetNote(goal.id, day.id) }}</span>
         </td>
       </tr>
     </table>
@@ -37,7 +38,7 @@ export default {
   computed: {
     setResultModalVisibility() {
       return this.$store.getters["getSetResultModalVisibility"];
-    }
+    },
   },
   props: {
     goal: Object
@@ -46,6 +47,9 @@ export default {
     SetResultModal,
   },
   methods: {
+    getTargetNote(goalId, resultId) {
+      return this.$store.getters["getTargetNote"](goalId, resultId);
+    },
     openModal(dayId){
       this.clickedDayId = dayId;
       this.$store.dispatch(ACTIONS.OPEN_SET_RESULT_MODAL);
@@ -55,18 +59,12 @@ export default {
       let result = this.goal.results.filter(result => result.id === id)[0];
       if (result) {
         let status = result.status;
-        if (status === "unchecked") {
-          bg = "#eee";
-        } else if (status === "notDone") {
-          bg = "rgba(255, 0, 0, 0.8)";
-        } else if (status === "subgoalDone") {
-          bg = "orange";
-        } else if (status === "done") {
-          bg = "rgba(0, 255, 0, 0.8)";
-        }
-      } else {
-        bg = '#eee';
+        if (status === "unchecked") bg = "#eee";
+        else if (status === "notDone") bg = "rgba(254, 92, 92, 0.9)";
+        else if (status === "subgoalDone") bg = "rgba(255, 165, 0, 0.6)";
+        else if (status === "done") bg = "rgba(0, 255, 0, 0.4)";
       }
+      else bg = '#eee';
 
       return `background-color: ${bg}`;
     },
@@ -126,10 +124,13 @@ export default {
       &:hover {
         cursor: pointer;
       }
-      &:hover .popup {
+      &:hover .date-popup {
         display: block;
       }
-      .popup {
+      &:hover .note-popup {
+        display: block;
+      }
+      .date-popup {
         position: absolute;
         bottom: 65%;
         left: 70%;
@@ -139,6 +140,17 @@ export default {
         padding: 10px 5px;
         z-index: 1;
         background-color: rgba(122, 122, 122, 0.7);
+      }
+      .note-popup {
+        position: absolute;
+        top: 65%;
+        left: 70%;
+        width: 180px;
+        text-align: center;
+        display: none;
+        padding: 10px 5px;
+        z-index: 1;
+        background-color: rgba(254, 92, 92, 0.6);
       }
     }
   }

@@ -1,3 +1,10 @@
 export default {
-  isLogedIn: true,
+  users: [
+    {
+      id: 0,
+      login: "martyna",
+      password: "pies",
+      isLogedIn: false,
+    }
+  ]
 }

@@ -8,3 +8,4 @@ export const CLOSE_SET_RESULT_MODAL = "closeSetResultModal";
 export const SET_STATUS = "setStatus";
 export const SET_NOTE = "setNote";
 export const SET_LOGIN_STATE = "setLoginState";
+export const ADD_USER = "addUser";

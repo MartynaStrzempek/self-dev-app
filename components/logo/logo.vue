@@ -17,8 +17,8 @@
 
 <style scoped lang="scss">
   .logo {
-    font-size: 130%;
-    margin: 0;
+    font-size: 200%;
+    margin-top: 25px;
     color: white;
     font-weight: 500;
     letter-spacing: 1px;

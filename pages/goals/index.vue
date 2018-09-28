@@ -11,10 +11,12 @@
       </div>
       <div class="buttons col-sm-3">
         <div class="add-button">
-          <el-button type="primary" @click="addGoal">Add</el-button>
+          <!--<el-button type="primary" @click="addGoal">Add</el-button>-->
+          <el-button type="warning" icon="el-icon-plus" circle @click="addGoal"></el-button>
         </div>
         <div class="edit-button">
-          <el-button plain @click="editGoal">Edit</el-button>
+          <!--<el-button plain @click="editGoal">Edit</el-button>-->
+          <el-button type="primary" icon="el-icon-edit" circle @click="editGoal"></el-button>
         </div>
       </div>
     </div>
@@ -121,12 +123,18 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    .edit-button {
+      padding-left: 15px;
+    }
   }
 }
 .middle-area {
   padding: 50px 0 70px 0;
   .right-arrow, .left-arrow {
     font-size: 300%;
+    &:hover {
+      cursor: pointer;
+    }
   }
   .right-arrow {
     display: flex;

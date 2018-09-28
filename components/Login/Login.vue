@@ -3,20 +3,31 @@
     <p class="title">{{ title }}</p>
     <el-form class="form">
       <p class="input-text hidden">Login</p>
-      <input placeholder="Login" class="input" required>
+      <input placeholder="Login" v-model="form.login" class="input" required>
       <p class="input-text hidden">Password</p>
-      <input type="password" placeholder="Password" class="input" required>
+      <input type="password" placeholder="Password" v-model="form.password" class="input" required>
       <p class="input-text hidden">Repeat Password</p>
-      <input type="password" placeholder="Repeat Password" class="input" :class="{ hidden: isLogin }" required/>
+      <input type="password" placeholder="Repeat Password" v-model="form.repeatedPassword" class="input" :class="{ hidden: isLogin }" required/>
+      <p class="validation-text" :class="{ hidden: isFormFilled }">Every input must be filled!</p>
+      <p class="validation-text" :class="{ hidden: arePasswordsMatch }">Passwords do not match. Check them again!</p>
       <el-button type="primary" @click="confirm" class="button">{{ buttonText }}</el-button>
     </el-form>
   </div>
 </template>
 
 <script>
+import * as ACTIONS from "../../store/actionTypes.js";
+import Vue from "vue";
 export default {
   data() {
     return {
+      form: {
+        login: "",
+        password: "",
+        repeatedPassword: ""
+      },
+      isFormFilled: true,
+      arePasswordsMatch: true,
       buttonText: "",
     }
   },
@@ -24,13 +35,41 @@ export default {
     isLogin: Boolean,
     title: String,
   },
-  methods: {
-    confirm() {
-      if (this.isLogin) {
-        this.$store.commit("setLoginState", true);
-      } else {
+  computed: {
 
+  },
+  methods: {
+    async confirm() {
+      let canConfirm = this.validate();
+      if (canConfirm) {
+        if (this.isLogin) {
+          console.log("login")
+        }
+        else {
+          await this.$store.dispatch(ACTIONS.ADD_USER, this.form);
+          this.$message({
+            message: 'Congratulations, You just have registered!',
+            type: 'success'
+          });
+          setTimeout(() => {
+            this.$router.push('goals');
+          }, 1000);
+        }
       }
+    },
+    validate() {
+      const { login, password, repeatedPassword } = this.form;
+      if (this.isLogin) {
+        this.isFormFilled = login.length > 0 && password.length > 0;
+        this.arePasswordsMatch = true;
+      }
+      else {
+        this.isFormFilled = login.length > 0 && password.length > 0 && repeatedPassword.length > 0;
+        if (password.length > 0 && repeatedPassword.length > 0) {
+          this.arePasswordsMatch = password === repeatedPassword;
+        }
+      }
+      return this.arePasswordsMatch && this.isFormFilled;
     }
   },
   mounted() {
@@ -56,6 +95,10 @@ export default {
     width: 100%;
     height: 50px;
     font-weight: bold;
+  }
+  .validation-text {
+    color: red;
+    font-size: 80%;
   }
 }
 .title {

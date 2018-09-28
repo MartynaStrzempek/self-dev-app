@@ -1,6 +1,7 @@
 <template>
   <div>
     <navigation />
+    <!--<div class="triangle"></div>-->
     <nuxt/>
   </div>
 </template>
@@ -33,5 +34,13 @@ html
 }
 body {
   font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
 }
+.triangle {
+  width: 0;
+  height: 0;
+  border-top: 100px solid red;
+  border-right: 250vw solid transparent;
+}
+
 </style>

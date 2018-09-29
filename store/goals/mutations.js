@@ -43,5 +43,10 @@ export default {
     let goal = state.goals.filter(goal => goal.id === goalId)[0];
     let result = goal.results.filter(result => result.id === resultId)[0];
     Vue.set(result, "note", note);
+  },
+  setPresentScore(state, payload) {
+    const { goalId, presentScore } = payload;
+    let goal = state.goals.filter(goal => goal.id === goalId)[0];
+    Vue.set(goal, "presentScore", presentScore);
   }
 }

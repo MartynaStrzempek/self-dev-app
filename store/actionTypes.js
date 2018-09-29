@@ -11,3 +11,4 @@ export const SET_LOGIN_STATE = "setLoginState";
 export const ADD_USER = "addUser";
 export const OPEN_NOTE_MODAL = "openNoteModal";
 export const CLOSE_NOTE_MODAL = "closeNoteModal";
+export const SET_PRESENT_SCORE = "setPresentScore";

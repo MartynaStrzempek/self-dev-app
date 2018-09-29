@@ -53,6 +53,7 @@
 import CalendarChart from '../../components/calendarChart/calendarChart.vue';
 import Modal from '../../components/modal/modal.vue';
 import PresentResultBox from '../../components/presentResultBox/presentResultBox.vue';
+import { countPoints } from "../../api/countPoints/countPoints";
 import * as ACTIONS from '../../store/actionTypes';
 export default {
   data() {
@@ -107,6 +108,9 @@ export default {
       this.$store.dispatch(ACTIONS.OPEN_MODAL);
       this.editing = true;
     }
+  },
+  mounted() {
+    console.log(countPoints(this.currentGoal.results));
   }
 }
 </script>

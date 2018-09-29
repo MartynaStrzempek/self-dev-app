@@ -14,5 +14,8 @@ export default {
   },
   setNote({ commit }, payload) {
     commit(MUTATIONS.SET_NOTE, payload);
+  },
+  setPresentScore({ commit }, payload) {
+    commit(MUTATIONS.SET_PRESENT_SCORE, payload);
   }
 }

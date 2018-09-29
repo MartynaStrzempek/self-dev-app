@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { countPoints } from "../../api/countPoints/countPoints";
 
 export default {
   setCurrentGoalId(state, id) {
@@ -20,10 +21,7 @@ export default {
     const results = state.goals.filter(goal => goal.id === editedGoalId)[0].results;
     state.goals.splice(editedGoalId, 1, { ...editedGoal, id: editedGoalId, results: results });
     // let goal = state.goals.filter(goal => goal.id === editedGoalId)[0];
-    // console.log(goal)
     // goal = { ...goal, ...editedGoal };
-    // console.log(goal)
-
   },
   setStatus(state, payload) {
     const { goalId, resultId, status } = payload;
@@ -44,9 +42,8 @@ export default {
     let result = goal.results.filter(result => result.id === resultId)[0];
     Vue.set(result, "note", note);
   },
-  setPresentScore(state, payload) {
-    const { goalId, presentScore } = payload;
+  setPresentScore(state, goalId) {
     let goal = state.goals.filter(goal => goal.id === goalId)[0];
-    Vue.set(goal, "presentScore", presentScore);
+    Vue.set(goal, "presentScore", countPoints(goal.results));
   }
 }

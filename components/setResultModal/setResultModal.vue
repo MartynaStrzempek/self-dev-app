@@ -57,13 +57,14 @@ export default {
           resultId: this.resultId,
           note: this.note,
         });
-        if (this.note.length === 0) {
+        if (this.status === "notDone" && this.note.length === 0) {
           this.$message({
             message: 'You can add note later!',
             type: 'warning'
           });
         }
         this.note = "";
+        this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, this.goalId);
       } else {
         this.isMarked = false;
       }

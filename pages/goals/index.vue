@@ -34,7 +34,7 @@
         <i class="fas fa-angle-right"></i>
       </div>
     </div>
-    <div class="row bottom justify-content-lg-around">
+    <div class="row bottom d-flex justify-content-lg-around align-items-center">
       <div class="present-result-box col-lg-4">
         <!--<transition name="fade" mode="out-in">-->
           <present-result-box
@@ -44,7 +44,9 @@
             :goalId="currentGoalId"/>
         <!--</transition>-->
       </div>
-      <div class="statistic-chart col-lg-5">Statistica</div>
+      <div class="statistic-chart col-lg-5">
+        <el-progress type="circle" :percentage="getPresentScore(currentGoalId)" width="200" color="rgb(248, 160, 2)"></el-progress>
+      </div>
     </div>
   </div>
 </template>
@@ -90,6 +92,18 @@ export default {
     }
   },
   methods: {
+    getPresentScore(goalId) {
+      const presentScore = Math.round(this.$store.getters["getPresentScore"](goalId) / this.currentGoal.scoreForReward * 100);
+      if (presentScore === 100) {
+        this.$notify({
+          title: 'Score!',
+          message: 'Congratulations! You have just achieved as many points as You wanted! Now You can change your goal or reward',
+          type: 'success',
+          duration: 0
+        });
+      }
+      return presentScore;
+    },
     nextGoal() {
       if (this.currentGoalId < this.goals.length - 1) {
         this.currentGoalId++;
@@ -110,7 +124,9 @@ export default {
     }
   },
   mounted() {
-    console.log(countPoints(this.currentGoal.results));
+    this.goals.map(goal => {
+      this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
+    })
   }
 }
 </script>
@@ -158,12 +174,7 @@ export default {
   }
 }
 .bottom {
-  .present-result-box {
-    margin-bottom: 50px;
-  }
-  .statistic-chart {
-    border: 1px solid black;
-  }
+  margin-bottom: 50px;
 }
 .disabled {
   color: #dbe1ec;

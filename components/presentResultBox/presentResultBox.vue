@@ -55,7 +55,11 @@ export default {
         resultId: this.createResultId(),
         status: this.presentStatus
       });
+      this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, this.goalId);
     }
+  },
+  mounted() {
+    console.log("aaa")
   }
 }
 </script>

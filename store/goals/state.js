@@ -6,7 +6,7 @@ export default {
       subGoalName: "Run three days per week",
       reward: "Eat a big cookie",
       scoreForReward: 101,
-      presentScore: 50,
+      presentScore: null,
       results: [
         {
           id: "12-09-2018",
@@ -85,11 +85,11 @@ export default {
       subGoalName: "Dont eat sweet things",
       reward: "Buy a mountain bike",
       scoreForReward: 203,
-      presentScore: 100,
+      presentScore: null,
       results: [
         {
           id: "23-08-2018",
-          status: "Not done"
+          status: "notDone"
         }
       ]
     },
@@ -99,11 +99,11 @@ export default {
       subGoalName: "Play computer games three times a week",
       reward: "Buy Minecraft",
       scoreForReward: 55,
-      presentScore: 30,
+      presentScore: null,
       results: [
         {
           id: "14-09-2018",
-          status: "Done"
+          status: "done"
         }
       ]
     }

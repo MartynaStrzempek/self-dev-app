@@ -9,7 +9,7 @@
         <el-radio class="radio-button" v-model="status" label="unchecked">I don't remember</el-radio>
       </div>
     </div>
-    <p class="validation-text" :class="{ hidden: isMarked }">To Add the goal You must fill in name of the goal and name of the subgoal</p>
+    <p class="validation-text" :class="{ hidden: isMarked }">To add the result You have to check something!</p>
     <div class="textarea-wrapper" :class="{ hidden: isGoalDone }">
       <p class="question">Why haven't You done that today?</p>
       <textarea class="textarea" v-model="note" cols="77" rows="5"></textarea>
@@ -23,7 +23,6 @@
 
 <script>
 import * as ACTIONS from "../../store/actionTypes";
-import NoteTextarea from "../../components/noteTextarea/noteTextarea.vue";
 export default {
   data() {
     return {
@@ -37,9 +36,6 @@ export default {
     visibility: Boolean,
     goalId: Number,
     resultId: String,
-  },
-  components: {
-    NoteTextarea,
   },
   methods: {
     cancel() {
@@ -56,11 +52,18 @@ export default {
           resultId: this.resultId,
           status: this.status
         });
-        this.$store.dispatch(ACTIONS.SET_NOTE, {
+        await this.$store.dispatch(ACTIONS.SET_NOTE, {
           goalId: this.goalId,
           resultId: this.resultId,
           note: this.note,
-        })
+        });
+        if (this.note.length === 0) {
+          this.$message({
+            message: 'You can add note later!',
+            type: 'warning'
+          });
+        }
+        this.note = "";
       } else {
         this.isMarked = false;
       }

@@ -12,14 +12,8 @@
         </transition>
       </div>
       <div class="buttons col-sm-3">
-        <div class="add-button">
-          <!--<el-button type="primary" @click="addGoal">Add</el-button>-->
-          <el-button type="primary" icon="el-icon-plus" circle @click="addGoal"></el-button>
-        </div>
-        <div class="edit-button">
-          <!--<el-button plain @click="editGoal">Edit</el-button>-->
-          <el-button icon="el-icon-edit" circle @click="editGoal"></el-button>
-        </div>
+        <el-button class="add-button" type="primary" icon="el-icon-plus" circle @click="addGoal"></el-button>
+        <el-button class="edit-button" icon="el-icon-edit" circle @click="editGoal"></el-button>
       </div>
     </div>
     <div class="row middle-area">
@@ -41,7 +35,7 @@
       </div>
     </div>
     <div class="row bottom justify-content-lg-around">
-      <div class="present-result-box col-lg-5">
+      <div class="present-result-box col-lg-4">
         <!--<transition name="fade" mode="out-in">-->
           <present-result-box
             v-if="index === currentGoalId"
@@ -178,7 +172,7 @@ export default {
 }
 
 .fade-enter-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
 }
 
 .fade-leave {
@@ -186,7 +180,7 @@ export default {
 }
 
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
   opacity: 0;
   position: absolute;
 }

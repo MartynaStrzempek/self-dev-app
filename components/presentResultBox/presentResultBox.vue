@@ -1,35 +1,35 @@
 <template>
   <div class="box">
     <div class="title">Select today's result</div>
-    <div class="body">
-      <div class="radio-buttons">
-        <el-radio class="radio-button" v-model="presentStatus" label="done">Done</el-radio>
-        <el-radio class="radio-button" v-model="presentStatus" label="subgoalDone">Subgoal done</el-radio>
-        <el-radio class="radio-button" v-model="presentStatus" label="notDone">Not done</el-radio>
-        <el-radio class="radio-button" v-model="presentStatus" label="unchecked">I don't remember</el-radio>
-      </div>
-      <note-textarea :class="{ hidden: isGoalDone }" :resultId="createResultId()"/>
+    <div class="radio-buttons">
+      <el-radio class="radio-button" v-model="presentStatus" label="done">Done</el-radio>
+      <el-radio class="radio-button" v-model="presentStatus" label="subgoalDone">Subgoal done</el-radio>
+      <el-radio class="radio-button" v-model="presentStatus" label="notDone">Not done</el-radio>
+      <el-radio class="radio-button" v-model="presentStatus" label="unchecked">I don't remember</el-radio>
     </div>
+    <note-modal :visibility="noteModalVisibility" :goal-id="goalId" :result-id="createResultId()"/>
   </div>
 </template>
 
 <script>
 import * as ACTIONS from "../../store/actionTypes.js";
-import NoteTextarea from "../../components/noteTextarea/noteTextarea.vue";
+import NoteModal from "../../components/noteModal/noteModal.vue";
 export default {
   data() {
     return {
       presentStatus: '',
-      isGoalDone: true,
     }
   },
   computed: {
     goalId() {
       return this.$store.getters["getCurrentGoalId"];
     },
+    noteModalVisibility() {
+      return this.$store.getters["getNoteModalVisibility"];
+    }
   },
   components: {
-    NoteTextarea
+    NoteModal,
   },
   methods: {
     createResultId() {
@@ -49,7 +49,7 @@ export default {
   },
   watch: {
     presentStatus: function() {
-      this.isGoalDone = this.presentStatus !== "notDone";
+      if (this.presentStatus === "notDone") this.$store.dispatch(ACTIONS.OPEN_NOTE_MODAL);
       this.$store.dispatch(ACTIONS.SET_STATUS, {
         goalId: this.goalId,
         resultId: this.createResultId(),
@@ -74,21 +74,14 @@ export default {
     font-size: 120%;
     font-weight: bold;
   }
-  .body {
+  .radio-buttons {
     display: flex;
-    align-items: center;
-    .radio-buttons {
-      display: flex;
-      flex-direction: column;
-      padding: 30px 20px;
-      .radio-button {
-        margin: 7px 0;
-        font-size: 16px;
-      }
+    flex-direction: column;
+    padding: 30px 40px;
+    .radio-button {
+      margin: 7px 0;
+      font-size: 16px;
     }
   }
-}
-.hidden {
-  display: none;
 }
 </style>

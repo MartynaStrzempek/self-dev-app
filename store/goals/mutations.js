@@ -17,7 +17,13 @@ export default {
   },
   editGoal(state, payload) {
     const { editedGoalId, editedGoal } = payload;
-    state.goals.splice(editedGoalId, 1, { ...editedGoal, id: editedGoalId, results: [] });
+    const results = state.goals.filter(goal => goal.id === editedGoalId)[0].results;
+    state.goals.splice(editedGoalId, 1, { ...editedGoal, id: editedGoalId, results: results });
+    // let goal = state.goals.filter(goal => goal.id === editedGoalId)[0];
+    // console.log(goal)
+    // goal = { ...goal, ...editedGoal };
+    // console.log(goal)
+
   },
   setStatus(state, payload) {
     const { goalId, resultId, status } = payload;
@@ -36,6 +42,6 @@ export default {
     const { goalId, resultId, note } = payload;
     let goal = state.goals.filter(goal => goal.id === goalId)[0];
     let result = goal.results.filter(result => result.id === resultId)[0];
-    result.note = note;
+    Vue.set(result, "note", note);
   }
 }

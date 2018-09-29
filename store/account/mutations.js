@@ -9,8 +9,7 @@ export default {
     state.users.push({
       id: lastId + 1,
       login: payload.login,
-      password: payload.password,
-      isLogedIn: true,
+      password: payload.password
     })
   }
 }

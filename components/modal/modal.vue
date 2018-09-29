@@ -14,7 +14,7 @@
         <el-input v-model="form.scoreForReward" placeholder="Fill score after which You want to get a reward..."></el-input>
       </el-form-item>
     </el-form>
-    <p class="validation-text" :class="{ hidden: isFilled }">To Add the goal You must fill in name of the goal and name of the subgoal</p>
+    <p class="validation-text" :class="{ hidden: isFilled }">To add or edit the goal You must fill in name of the goal and name of the subgoal</p>
     <span slot="footer" class="dialog-footer">
       <el-button @click="cancel">Cancel</el-button>
       <el-button type="primary" @click="save">Save</el-button>
@@ -71,7 +71,6 @@ export default {
   },
   watch: {
     editing: function () {
-      console.log(this.editing)
       if (this.editing) {
         this.form = {
           goalName: this.editedGoal.goalName,
@@ -89,8 +88,6 @@ export default {
       }
     }
   },
-  mounted() {
-  }
 }
 //if edited -> fill in inputs with edited goal data and execute function which filter goals prop to edit current goal
 </script>

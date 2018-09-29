@@ -10,6 +10,8 @@
       <input type="password" placeholder="Repeat Password" v-model="form.repeatedPassword" class="input" :class="{ hidden: isLogin }" required/>
       <p class="validation-text" :class="{ hidden: isFormFilled }">Every input must be filled!</p>
       <p class="validation-text" :class="{ hidden: arePasswordsMatch }">Passwords do not match. Check them again!</p>
+      <p class="validation-text" :class="{ hidden: isLoginCorrect }">I'm sorry, user with this login doesn't exist</p>
+      <p class="validation-text" :class="{ hidden: isPasswordCorrect }">Password is'nt correct!</p>
       <el-button type="primary" @click="confirm" class="button">{{ buttonText }}</el-button>
     </el-form>
   </div>
@@ -28,6 +30,8 @@ export default {
       },
       isFormFilled: true,
       arePasswordsMatch: true,
+      isLoginCorrect: true,
+      isPasswordCorrect: true,
       buttonText: "",
     }
   },
@@ -43,17 +47,30 @@ export default {
       let canConfirm = this.validate();
       if (canConfirm) {
         if (this.isLogin) {
-          console.log("login")
+          const user = this.getUser(this.form.login);
+          if (user) {
+            this.isLoginCorrect = true;
+            if (user.password === this.form.password) {
+              this.isPasswordCorrect = true;
+              this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, true);
+              setTimeout(() => this.$router.push('goals'), 1000);
+            }
+            else {
+              this.isPasswordCorrect = false;
+            }
+          }
+          else {
+            this.isLoginCorrect = false;
+          }
         }
         else {
           await this.$store.dispatch(ACTIONS.ADD_USER, this.form);
+          await this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, true);
           this.$message({
             message: 'Congratulations, You just have registered!',
             type: 'success'
           });
-          setTimeout(() => {
-            this.$router.push('goals');
-          }, 1000);
+          setTimeout(() => this.$router.push('goals'), 1000);
         }
       }
     },
@@ -70,6 +87,9 @@ export default {
         }
       }
       return this.arePasswordsMatch && this.isFormFilled;
+    },
+    getUser(login) {
+      return this.$store.getters["getTargetUser"](login);
     }
   },
   mounted() {

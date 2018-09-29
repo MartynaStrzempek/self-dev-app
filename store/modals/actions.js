@@ -11,5 +11,11 @@ export default {
   },
   closeSetResultModal({ commit }) {
     commit(MUTATIONS.CLOSE_SET_RESULT_MODAL);
-  }
+  },
+  openNoteModal({ commit }) {
+      commit(MUTATIONS.OPEN_NOTE_MODAL);
+    },
+  closeNoteModal({ commit }) {
+    commit(MUTATIONS.CLOSE_NOTE_MODAL);
+  },
 }

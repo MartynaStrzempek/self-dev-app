@@ -44,7 +44,7 @@
             :goalId="currentGoalId"/>
         <!--</transition>-->
       </div>
-      <div class="statistic-chart col-lg-5">
+      <div class="statistic-chart col-lg-4">
         <el-progress type="circle" :percentage="getPresentScore(currentGoalId)" width="200" color="rgb(248, 160, 2)"></el-progress>
       </div>
     </div>
@@ -94,7 +94,7 @@ export default {
   methods: {
     getPresentScore(goalId) {
       const presentScore = Math.round(this.$store.getters["getPresentScore"](goalId) / this.currentGoal.scoreForReward * 100);
-      if (presentScore === 100) {
+      if (presentScore >= 100) {
         this.$notify({
           title: 'Score!',
           message: 'Congratulations! You have just achieved as many points as You wanted! Now You can change your goal or reward',

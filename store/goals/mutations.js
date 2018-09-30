@@ -12,14 +12,15 @@ export default {
       subGoalName: goal.subGoalName,
       reward: goal.reward,
       scoreForReward: goal.scoreForReward,
+      presentScore: 0,
       results: []
     });
     Vue.set(state, "currentGoalId", state.goals[state.goals.length - 1].id);
   },
   editGoal(state, payload) {
     const { editedGoalId, editedGoal } = payload;
-    const results = state.goals.filter(goal => goal.id === editedGoalId)[0].results;
-    state.goals.splice(editedGoalId, 1, { ...editedGoal, id: editedGoalId, results: results });
+    const goal = state.goals.filter(goal => goal.id === editedGoalId)[0];
+    state.goals.splice(editedGoalId, 1, { ...editedGoal, id: editedGoalId, results: goal.results, presentScore: goal.presentScore });
     // let goal = state.goals.filter(goal => goal.id === editedGoalId)[0];
     // goal = { ...goal, ...editedGoal };
   },

@@ -53,7 +53,7 @@ export default {
             if (user.password === this.form.password) {
               this.isPasswordCorrect = true;
               this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, true);
-              setTimeout(() => this.$router.push('goals'), 1000);
+              setTimeout(() => this.$router.push('goals'), 500);
             }
             else {
               this.isPasswordCorrect = false;
@@ -70,7 +70,7 @@ export default {
             message: 'Congratulations, You just have registered!',
             type: 'success'
           });
-          setTimeout(() => this.$router.push('goals'), 1000);
+          setTimeout(() => this.$router.push('goals'), 500);
         }
       }
     },

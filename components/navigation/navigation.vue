@@ -64,7 +64,6 @@ export default {
       display: flex;
       .nav-item {
         padding-left: 40px;
-        /*letter-spacing: 1px;*/
         color: white;
         font-size: 125%;
         text-decoration: none;

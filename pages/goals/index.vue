@@ -26,8 +26,8 @@
             v-if="index === currentGoalId"
             v-for="(goal, index) in goals"
             :key="index"
-            :sub-goal="goal.subGoalName"
-            :goal="currentGoal"/>
+            :goal="currentGoal"
+            :day-amount="180"/>
         </transition>
       </div>
       <div class="right-arrow col-lg-1" @click="nextGoal">
@@ -45,7 +45,7 @@
         <!--</transition>-->
       </div>
       <div class="statistic-chart col-lg-4">
-        <el-progress type="circle" :percentage="getPresentScore(currentGoalId)" width="200" color="rgb(248, 160, 2)"></el-progress>
+        <el-progress type="circle" :percentage="getPresentScore(currentGoalId)" :width="200" color="rgb(248, 160, 2)"></el-progress>
       </div>
     </div>
   </div>

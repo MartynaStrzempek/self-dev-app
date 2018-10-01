@@ -1,4 +1,5 @@
 export default {
+  currentGoalId: 0,
   goals: [
     {
       id: 0,
@@ -106,7 +107,118 @@ export default {
           status: "done"
         }
       ]
-    }
+    },
+    {
+      id: 3,
+      goalName: "Goal 4",
+      subGoalName: "",
+      reward: "",
+      scoreForReward: 55,
+      presentScore: null,
+      results: [
+        {
+          id: "14-09-2018",
+          status: "done"
+        }
+      ]
+    },
+    {
+      id: 4,
+      goalName: "Goal 5",
+      subGoalName: "P",
+      reward: "",
+      scoreForReward: 55,
+      presentScore: null,
+      results: [
+        {
+          id: "14-09-2018",
+          status: "done"
+        }
+      ]
+    },
+    {
+      id: 5,
+      goalName: "Goal 6",
+      subGoalName: "",
+      reward: "",
+      scoreForReward: 55,
+      presentScore: null,
+      results: [
+        {
+          id: "14-09-2018",
+          status: "done"
+        }
+      ]
+    },
+    {
+      id: 6,
+      goalName: "Goal 7",
+      subGoalName: "",
+      reward: "",
+      scoreForReward: 55,
+      presentScore: null,
+      results: [
+        {
+          id: "14-09-2018",
+          status: "done"
+        }
+      ]
+    },
+    {
+      id: 7,
+      goalName: "Goal 8",
+      subGoalName: "",
+      reward: "",
+      scoreForReward: 55,
+      presentScore: null,
+      results: [
+        {
+          id: "14-09-2018",
+          status: "done"
+        }
+      ]
+    },
+    {
+      id: 8,
+      goalName: "Goal 9",
+      subGoalName: "",
+      reward: "",
+      scoreForReward: 55,
+      presentScore: null,
+      results: [
+        {
+          id: "14-09-2018",
+          status: "done"
+        }
+      ]
+    },
+    {
+      id: 9,
+      goalName: "Goal 10",
+      subGoalName: "",
+      reward: "",
+      scoreForReward: 55,
+      presentScore: null,
+      results: [
+        {
+          id: "14-09-2018",
+          status: "done"
+        }
+      ]
+    },
+    {
+      id: 10,
+      goalName: "PGoal 11",
+      subGoalName: "",
+      reward: "",
+      scoreForReward: 55,
+      presentScore: null,
+      results: [
+        {
+          id: "14-09-2018",
+          status: "done"
+        }
+      ]
+    },
   ],
-  currentGoalId: 0
 }

@@ -41,7 +41,8 @@ export default {
     },
   },
   props: {
-    goal: Object
+    goal: Object,
+    dayAmount: Number
   },
   components: {
     SetResultModal,
@@ -70,8 +71,8 @@ export default {
     },
     getMonths() {
       const today = new Date();
-      let dayBefore, day, month, year, id, dayId, displayDay, displayDate, amount = 180;
-
+      let dayBefore, day, month, year, id, dayId, displayDay, displayDate, amount = this.dayAmount;
+      console.log("am", amount)
       for (let i = 1; i <= 6; i++) {
         if (this.dayNames.indexOf(new Date(today - 86400000 * amount).toString().substr(0, 3)) !== 0) {
           amount++
@@ -106,7 +107,6 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  /*width: 60%;*/
   table {
     td {
       min-width: 30px;

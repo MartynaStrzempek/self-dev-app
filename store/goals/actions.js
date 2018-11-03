@@ -1,4 +1,5 @@
 import * as MUTATIONS from '../mutationTypes';
+import axios from 'axios';
 export default {
   setCurrentGoalId({ commit }, id) {
     commit(MUTATIONS.SET_CURRENT_GOAL_ID, id);
@@ -17,5 +18,13 @@ export default {
   },
   setPresentScore({ commit }, payload) {
     commit(MUTATIONS.SET_PRESENT_SCORE, payload);
+  },
+  async fetchGoals({ commit }, userId) {
+    let goals;
+    await axios
+      .get(`http://localhost:8080/user/${userId}/goals`)
+      .then(data => goals = data.data);
+    console.log(goals)
+    commit(MUTATIONS.FETCH_GOALS, goals);
   }
 }

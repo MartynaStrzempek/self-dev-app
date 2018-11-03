@@ -1,7 +1,7 @@
 export default {
-  getGoals: state => state.goals,
+  getGoals: state => state.goalsB,
   getCurrentGoalId: state => state.currentGoalId,
-  getTargetGoal: state => id => state.goals.filter(goal => goal.id === id)[0],
+  getTargetGoal: state => id => state.goalsB.filter(goal => goal.id === id)[0],
   getPresentResult: state => (goalId, resultId) => {
     let goal = state.goals.filter(goal => goal.id === goalId)[0];
     let result = goal.results.filter(result => result.id === resultId)[0];

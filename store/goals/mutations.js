@@ -46,5 +46,9 @@ export default {
   setPresentScore(state, goalId) {
     let goal = state.goals.filter(goal => goal.id === goalId)[0];
     Vue.set(goal, "presentScore", countPoints(goal.results));
-  }
+  },
+  fetchGoals(state, goals) {
+    Vue.set(state, "goalsB", goals);
+  },
+
 }

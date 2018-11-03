@@ -1,5 +1,6 @@
 export default {
-  currentGoalId: 0,
+  currentGoalId: null,
+  goalsB: [],
   goals: [
     {
       id: 0,

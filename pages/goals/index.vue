@@ -44,9 +44,9 @@
             :goalId="currentGoalId"/>
         <!--</transition>-->
       </div>
-      <div class="statistic-chart col-lg-4">
-        <el-progress type="circle" :percentage="getPresentScore(currentGoalId)" :width="200" color="rgb(248, 160, 2)"></el-progress>
-      </div>
+      <!--<div class="statistic-chart col-lg-4">-->
+        <!--<el-progress type="circle" :percentage="getPresentScore(currentGoalId)" :width="200" color="rgb(248, 160, 2)"></el-progress>-->
+      <!--</div>-->
     </div>
   </div>
 </template>
@@ -89,21 +89,24 @@ export default {
     modalTitle() {
       if (this.editing) return "Edit the goal";
       else return "Add the goal"
+    },
+    userId() {
+      return this.$store.getters["getUserId"];
     }
   },
   methods: {
-    getPresentScore(goalId) {
-      const presentScore = Math.round(this.$store.getters["getPresentScore"](goalId) / this.currentGoal.scoreForReward * 100);
-      if (presentScore >= 100) {
-        this.$notify({
-          title: 'Score!',
-          message: 'Congratulations! You have just achieved as many points as You wanted! Now You can change your goal or reward',
-          type: 'success',
-          duration: 0
-        });
-      }
-      return presentScore;
-    },
+    // getPresentScore(goalId) {
+    //   const presentScore = Math.round(this.$store.getters["getPresentScore"](goalId) / this.currentGoal.scoreForReward * 100);
+    //   if (presentScore >= 100) {
+    //     this.$notify({
+    //       title: 'Score!',
+    //       message: 'Congratulations! You have just achieved as many points as You wanted! Now You can change your goal or reward',
+    //       type: 'success',
+    //       duration: 0
+    //     });
+    //   }
+    //   return presentScore;
+    // },
     nextGoal() {
       if (this.currentGoalId < this.goals.length - 1) {
         this.currentGoalId++;
@@ -123,10 +126,12 @@ export default {
       this.editing = true;
     }
   },
-  mounted() {
-    this.goals.map(goal => {
-      this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
-    })
+  async mounted() {
+    await this.$store.dispatch(ACTIONS.FETCH_GOALS, this.userId);
+    this.$store.dispatch(ACTIONS.SET_CURRENT_GOAL_ID, this.goals[0].id)
+    // this.goals.map(goal => {
+    //   this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
+    // });
   }
 }
 </script>

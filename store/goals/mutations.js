@@ -48,7 +48,9 @@ export default {
     Vue.set(goal, "presentScore", countPoints(goal.results));
   },
   fetchGoals(state, goals) {
-    Vue.set(state, "goalsB", goals);
+    Vue.set(state, "goals", goals);
   },
-
+  setGoalIdsArray(state, array) {
+    Vue.set(state, "goalIdsArray", array);
+  }
 }

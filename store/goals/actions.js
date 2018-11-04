@@ -1,5 +1,7 @@
 import * as MUTATIONS from '../mutationTypes';
 import axios from 'axios';
+import { setGoalIdsArray } from "../../api/setGoalIdsArray/setGoalIdsArray";
+
 export default {
   setCurrentGoalId({ commit }, id) {
     commit(MUTATIONS.SET_CURRENT_GOAL_ID, id);
@@ -23,7 +25,11 @@ export default {
     let goals;
     await axios
       .get(`http://localhost:8080/user/${userId}/goals`)
-      .then(data => goals = data.data);
+      .then(data => {
+        goals = data.data;
+        commit(MUTATIONS.SET_CURRENT_GOAL_ID, goals[0].id);
+        commit(MUTATIONS.SET_GOAL_IDS_ARRAY, setGoalIdsArray(goals));
+      });
     console.log(goals)
     commit(MUTATIONS.FETCH_GOALS, goals);
   }

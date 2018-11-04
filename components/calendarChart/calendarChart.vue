@@ -57,13 +57,13 @@ export default {
     },
     style(id) {
       let bg;
-      let result = this.goal.results.filter(result => result.id === id)[0];
+      let result = this.goal.Results.find(result => result.date === id);
       if (result) {
-        let status = result.status;
-        if (status === "unchecked") bg = "#eee";
-        else if (status === "notDone") bg = "rgba(254, 92, 92, 0.9)";
-        else if (status === "subgoalDone") bg = "rgba(255, 165, 0, 0.6)";
-        else if (status === "done") bg = "rgba(0, 255, 0, 0.4)";
+        let statusId = result.StatusId;
+        if (statusId === 3) bg = "#eee";
+        else if (statusId === 2) bg = "rgba(254, 92, 92, 0.9)";
+        else if (statusId === 4) bg = "rgba(255, 165, 0, 0.6)";
+        else if (statusId === 1) bg = "rgba(0, 255, 0, 0.4)";
       }
       else bg = '#eee';
 
@@ -72,7 +72,6 @@ export default {
     getMonths() {
       const today = new Date();
       let dayBefore, day, month, year, id, dayId, displayDay, displayDate, amount = this.dayAmount;
-      console.log("am", amount)
       for (let i = 1; i <= 6; i++) {
         if (this.dayNames.indexOf(new Date(today - 86400000 * amount).toString().substr(0, 3)) !== 0) {
           amount++
@@ -85,12 +84,12 @@ export default {
         if (dayBefore.getDate().toString().length < 2) day = `0${dayBefore.getDate()}`;
         else day = dayBefore.getDate();
 
-        if (dayBefore.getMonth().toString().length < 2) month = `0${dayBefore.getMonth() + 1}`;
+        if (dayBefore.getMonth().toString().length < 2) month = `${dayBefore.getMonth() + 1}`;
         else month = dayBefore.getMonth() + 1;
 
         year = dayBefore.getFullYear();
 
-        id = `${day}-${month}-${year}`;
+        id = `${year}-${month}-${day}`;
         dayId = this.dayNames.indexOf(dayBefore.toString().substr(0, 3));
         displayDay = dayBefore.getDate();
         displayDate = `${dayBefore.getDate()} ${this.monthNames[dayBefore.getMonth()]} ${dayBefore.getFullYear()}`;

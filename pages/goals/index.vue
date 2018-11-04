@@ -8,7 +8,7 @@
     <div class="row header">
       <div class="goal-name col-sm-9">
         <transition name="fade" mode="out-in">
-          <h1 v-if="index === currentGoalId" v-for="(goal, index) in goals" :key="index">{{ goal.goalName }}</h1>
+          <h1 v-if="goalIdsArray[index] === currentGoalId" v-for="(goal, index) in goals" :key="index">{{ goal.goalName }}</h1>
         </transition>
       </div>
       <div class="buttons col-sm-3">
@@ -23,7 +23,7 @@
       <div class="calendar col-lg-10">
         <transition name="fade" mode="out-in">
           <calendar-chart
-            v-if="index === currentGoalId"
+            v-if="goalIdsArray[index] === currentGoalId"
             v-for="(goal, index) in goals"
             :key="index"
             :goal="currentGoal"
@@ -36,13 +36,11 @@
     </div>
     <div class="row bottom d-flex justify-content-lg-around align-items-center">
       <div class="present-result-box col-lg-4">
-        <!--<transition name="fade" mode="out-in">-->
-          <present-result-box
-            v-if="index === currentGoalId"
-            v-for="(goal, index) in goals"
-            :key="index"
-            :goalId="currentGoalId"/>
-        <!--</transition>-->
+        <present-result-box
+          v-if="goalIdsArray[index] === currentGoalId"
+          v-for="(goal, index) in goals"
+          :key="index"
+          :goalId="currentGoalId"/>
       </div>
       <!--<div class="statistic-chart col-lg-4">-->
         <!--<el-progress type="circle" :percentage="getPresentScore(currentGoalId)" :width="200" color="rgb(248, 160, 2)"></el-progress>-->
@@ -92,6 +90,9 @@ export default {
     },
     userId() {
       return this.$store.getters["getUserId"];
+    },
+    goalIdsArray() {
+      return this.$store.getters["getGoalIdsArray"];
     }
   },
   methods: {
@@ -108,14 +109,16 @@ export default {
     //   return presentScore;
     // },
     nextGoal() {
-      if (this.currentGoalId < this.goals.length - 1) {
-        this.currentGoalId++;
-      }
+      // if (this.currentGoalId < this.goals.length - 1) {
+        const index = this.goalIdsArray.indexOf(this.currentGoalId);
+        this.currentGoalId = this.goalIdsArray[index + 1];
+      // }
     },
     previousGoal() {
-      if (this.currentGoalId > 0) {
-        this.currentGoalId--;
-      }
+      // if (this.currentGoalId > 0) {
+        const index = this.goalIdsArray.indexOf(this.currentGoalId);
+        this.currentGoalId = this.goalIdsArray[index - 1];
+      // }
     },
     addGoal() {
       this.$store.dispatch(ACTIONS.OPEN_MODAL);
@@ -128,7 +131,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch(ACTIONS.FETCH_GOALS, this.userId);
-    this.$store.dispatch(ACTIONS.SET_CURRENT_GOAL_ID, this.goals[0].id)
+
     // this.goals.map(goal => {
     //   this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
     // });

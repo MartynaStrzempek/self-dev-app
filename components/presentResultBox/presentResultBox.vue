@@ -58,9 +58,6 @@ export default {
       this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, this.goalId);
     }
   },
-  mounted() {
-    console.log("aaa")
-  }
 }
 </script>
 

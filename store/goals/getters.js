@@ -8,12 +8,12 @@ export default {
     if (result) return result.status;
     else return "";
   },
-  getPresentScore: state => id => state.goals.find(goal => goal.id === id).presentScore,
   getTargetNote: state => (goalId, resultId) => {
     let goal = state.goals.find(goal => goal.id === goalId);
-    let result = goal.Results.find(result => result.id === resultId);
+    let result = goal.Results.find(result => result.date === resultId);
     if (result && result.note) return result.note;
     else return null;
   },
-  getGoalIdsArray: state => state.goalIdsArray
+  getGoalIdsArray: state => state.goalIdsArray,
+  getTargetPrise: state => goalId => state.prises.length > 0 ? state.prises.find(prise => prise.goalId === goalId) : "",
 }

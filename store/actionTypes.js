@@ -13,4 +13,4 @@ export const OPEN_NOTE_MODAL = "openNoteModal";
 export const CLOSE_NOTE_MODAL = "closeNoteModal";
 export const SET_PRESENT_SCORE = "setPresentScore";
 export const FETCH_GOALS = "fetchGoals";
-export const FETCH_PRISE_SCORE = "fetchPriseScore";
+export const FETCH_PRISE = "fetchPrise";

@@ -80,16 +80,16 @@ export default {
 
       for (let i = amount; i >= 0; i--) {
         dayBefore = new Date(today - 86400000 * i);
+        month = dayBefore.getMonth() + 1;
+        day = dayBefore.getDate();
 
-        if (dayBefore.getDate().toString().length < 2) day = `0${dayBefore.getDate()}`;
-        else day = dayBefore.getDate();
-
-        if (dayBefore.getMonth().toString().length < 2) month = `${dayBefore.getMonth() + 1}`;
-        else month = dayBefore.getMonth() + 1;
+        if (day.toString().length < 2) day = `0${day}`;
+        if (month.toString().length < 2) month = `0${month}`;
 
         year = dayBefore.getFullYear();
 
         id = `${year}-${month}-${day}`;
+
         dayId = this.dayNames.indexOf(dayBefore.toString().substr(0, 3));
         displayDay = dayBefore.getDate();
         displayDate = `${dayBefore.getDate()} ${this.monthNames[dayBefore.getMonth()]} ${dayBefore.getFullYear()}`;

@@ -2,6 +2,7 @@ export default {
   currentGoalId: 0,
   goalIdsArray: [],
   goals: [],
+  prises: [],
   // goals: [
   //   {
   //     id: 0,

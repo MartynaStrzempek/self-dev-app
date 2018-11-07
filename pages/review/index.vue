@@ -12,7 +12,7 @@
               <p>subgoal: <b>{{ goal.subGoalName }}</b></p>
               <p>reward: <b>{{ goal.reward }}</b></p>
               <p>point to achieve: <b>{{ goal.scoreForReward }}</b></p>
-              <p>present points: <b>{{ goal.presentScore }}</b></p>
+              <!--<p>present points: <b>{{ goal.presentScore }}</b></p>-->
             </div>
           </div>
         </div>

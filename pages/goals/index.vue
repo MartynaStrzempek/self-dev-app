@@ -42,9 +42,9 @@
           :key="index"
           :goalId="currentGoalId"/>
       </div>
-      <!--<div class="statistic-chart col-lg-4">-->
-        <!--<el-progress type="circle" :percentage="getPresentScore(currentGoalId)" :width="200" color="rgb(248, 160, 2)"></el-progress>-->
-      <!--</div>-->
+      <div class="statistic-chart col-lg-4">
+        <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="200" color="rgb(248, 160, 2)"></el-progress>
+      </div>
     </div>
   </div>
 </template>
@@ -93,32 +93,31 @@ export default {
     },
     goalIdsArray() {
       return this.$store.getters["getGoalIdsArray"];
+    },
+    prise() {
+      return this.$store.getters["getTargetPrise"](this.currentGoalId);
     }
   },
   methods: {
-    // getPresentScore(goalId) {
-    //   const presentScore = Math.round(this.$store.getters["getPresentScore"](goalId) / this.currentGoal.scoreForReward * 100);
-    //   if (presentScore >= 100) {
-    //     this.$notify({
-    //       title: 'Score!',
-    //       message: 'Congratulations! You have just achieved as many points as You wanted! Now You can change your goal or reward',
-    //       type: 'success',
-    //       duration: 0
-    //     });
-    //   }
-    //   return presentScore;
-    // },
+    getPercentagePresentScore() {
+      const percentagePresentScore = Math.round(this.prise.presentScore / this.prise.score * 100);
+      if (percentagePresentScore >= 100) {
+        this.$notify({
+          title: 'Score!',
+          message: 'Congratulations! You have just achieved as many points as You wanted! Now You can change your goal or reward',
+          type: 'success',
+          duration: 0
+        });
+      }
+      return percentagePresentScore;
+    },
     nextGoal() {
-      // if (this.currentGoalId < this.goals.length - 1) {
-        const index = this.goalIdsArray.indexOf(this.currentGoalId);
-        this.currentGoalId = this.goalIdsArray[index + 1];
-      // }
+      const index = this.goalIdsArray.indexOf(this.currentGoalId);
+      if (index < this.goalIdsArray.length - 1) this.currentGoalId = this.goalIdsArray[index + 1];
     },
     previousGoal() {
-      // if (this.currentGoalId > 0) {
-        const index = this.goalIdsArray.indexOf(this.currentGoalId);
-        this.currentGoalId = this.goalIdsArray[index - 1];
-      // }
+      const index = this.goalIdsArray.indexOf(this.currentGoalId);
+      if (index > 0) this.currentGoalId = this.goalIdsArray[index - 1];
     },
     addGoal() {
       this.$store.dispatch(ACTIONS.OPEN_MODAL);
@@ -131,10 +130,11 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch(ACTIONS.FETCH_GOALS, this.userId);
+    await this.$store.dispatch(ACTIONS.FETCH_PRISE, this.goals);
 
-    // this.goals.map(goal => {
-    //   this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
-    // });
+    this.goals.map(goal => {
+      this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
+    });
   }
 }
 </script>

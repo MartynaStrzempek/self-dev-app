@@ -44,13 +44,19 @@ export default {
     Vue.set(result, "note", note);
   },
   setPresentScore(state, goalId) {
-    let goal = state.goals.filter(goal => goal.id === goalId)[0];
-    Vue.set(goal, "presentScore", countPoints(goal.results));
+   setTimeout(() => {
+     let prise = state.prises.find(prise => prise.goalId === goalId);
+     let goal = state.goals.find(goal => goal.id === goalId);
+     Vue.set(prise, "presentScore", countPoints(goal.Results))
+   }, 100)
   },
   fetchGoals(state, goals) {
     Vue.set(state, "goals", goals);
   },
-  setGoalIdsArray(state, array) {
-    Vue.set(state, "goalIdsArray", array);
+  setGoalIdsArray(state, goalIdsArray) {
+    Vue.set(state, "goalIdsArray", goalIdsArray);
+  },
+  fetchPrise(state, prise) {
+    state.prises.push(prise);
   }
 }

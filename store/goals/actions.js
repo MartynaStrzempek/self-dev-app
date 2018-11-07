@@ -30,7 +30,14 @@ export default {
         commit(MUTATIONS.SET_CURRENT_GOAL_ID, goals[0].id);
         commit(MUTATIONS.SET_GOAL_IDS_ARRAY, setGoalIdsArray(goals));
       });
-    console.log(goals)
     commit(MUTATIONS.FETCH_GOALS, goals);
+  },
+  fetchPrise({ commit }, goals) {
+    goals.map(goal => {
+      let priseId = goal.PriseId;
+      axios
+        .get(`http://localhost:8080/prises/${priseId}`)
+        .then (data => commit(MUTATIONS.FETCH_PRISE, { ...data.data, goalId: goal.id }))
+    });
   }
 }

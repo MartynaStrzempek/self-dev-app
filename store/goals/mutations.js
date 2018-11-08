@@ -5,18 +5,6 @@ export default {
   setCurrentGoalId(state, id) {
     Vue.set(state, "currentGoalId", id)
   },
-  addGoal(state, goal) {
-    state.goals.push({
-      id: state.goals[state.goals.length - 1].id + 1,
-      goalName: goal.goalName,
-      subGoalName: goal.subGoalName,
-      reward: goal.reward,
-      scoreForReward: goal.scoreForReward,
-      presentScore: 0,
-      results: []
-    });
-    Vue.set(state, "currentGoalId", state.goals[state.goals.length - 1].id);
-  },
   editGoal(state, payload) {
     const { editedGoalId, editedGoal } = payload;
     const goal = state.goals.filter(goal => goal.id === editedGoalId)[0];
@@ -37,12 +25,12 @@ export default {
       })
     }
   },
-  setNote(state, payload) {
-    const { goalId, resultId, note } = payload;
-    let goal = state.goals.filter(goal => goal.id === goalId)[0];
-    let result = goal.results.filter(result => result.id === resultId)[0];
-    Vue.set(result, "note", note);
-  },
+  // setNote(state, payload) {
+  //   const { goalId, resultId, note } = payload;
+  //   let goal = state.goals.filter(goal => goal.id === goalId)[0];
+  //   let result = goal.results.filter(result => result.id === resultId)[0];
+  //   Vue.set(result, "note", note);
+  // },
   setPresentScore(state, goalId) {
    setTimeout(() => {
      let prise = state.prises.find(prise => prise.goalId === goalId);

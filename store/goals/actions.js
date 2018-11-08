@@ -1,19 +1,45 @@
 import * as MUTATIONS from '../mutationTypes';
 import axios from 'axios';
-import { setGoalIdsArray } from "../../api/setGoalIdsArray/setGoalIdsArray";
+import { setGoalIdsArray } from '../../api/setGoalIdsArray/setGoalIdsArray';
+import store from '../../store';
 
 export default {
   setCurrentGoalId({ commit }, id) {
     commit(MUTATIONS.SET_CURRENT_GOAL_ID, id);
   },
-  addGoal({ commit }, goal) {
-    commit(MUTATIONS.ADD_GOAL, goal);
+  async addGoal({ commit }, goal) {
+    const userId = store().getters["getUserId"];
+    await axios
+      .post(`http://localhost:8080/user/${userId}/goal`, {
+        description: goal.reward,
+        score: goal.scoreForReward,
+        goalName: goal.goalName,
+        subgoalName: goal.subGoalName
+      })
+      .then(res => console.log(res))
+      .catch(error => console.log(error))
   },
-  editGoal({ commit }, editedGoal) {
-    commit(MUTATIONS.EDIT_GOAL, editedGoal);
+  async editGoal({ commit }, payload) {
+    // commit(MUTATIONS.EDIT_GOAL, editedGoal);
   },
-  setStatus({ commit }, payload) {
-    commit(MUTATIONS.SET_STATUS, payload);
+  async setStatus({ commit }, payload) {
+    // commit(MUTATIONS.SET_STATUS, payload);
+    const userId = store().getters["getUserId"];
+    // console.log("st", payload)
+    const goalId = payload.goalId;
+    await axios
+      .post(`http://localhost:8080/user/${userId}/goal/${goalId}/result`, {
+        status: payload.status,
+        date: payload.resultId
+      })
+      .then(res => {
+        axios
+          .get(`http://localhost:8080/user/${userId}/goals`)
+          .then((res) => console.log(res))
+          .catch(err => console.log(err))
+        console.log(res)
+      })
+      .catch(error => console.log(error))
   },
   setNote({ commit }, payload) {
     commit(MUTATIONS.SET_NOTE, payload);

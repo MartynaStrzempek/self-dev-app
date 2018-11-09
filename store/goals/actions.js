@@ -18,15 +18,11 @@ export default {
         subgoalName: goal.subGoalName
       })
       .then(response => {
+        let lastGoalId = response.data.id;
         dispatch(ACTIONS.FETCH_GOALS, { userId });
-        console.log("add goal", response.data);
-        return response.data.id;
+        return lastGoalId;
       })
-      .then((lastGoalId) => {
-        // const goals = store().getters["getGoals"];
-        // const lastGoalId = goals[goal.length - 1].id;
-        commit(MUTATIONS.SET_CURRENT_GOAL_ID, lastGoalId);
-      })
+      .then(lastGoalId => commit(MUTATIONS.SET_CURRENT_GOAL_ID, lastGoalId))
       .catch(error => console.log(error))
   },
   async editGoal({ commit }, payload) {
@@ -41,10 +37,7 @@ export default {
         status: payload.status,
         date: payload.resultId
       })
-      .then(response => {
-        dispatch(ACTIONS.FETCH_GOALS, { userId });
-        console.log("result", response.data);
-      })
+      .then(() => dispatch(ACTIONS.FETCH_GOALS, { userId }))
       .catch(error => console.log(error))
   },
   setNote({ commit }, payload) {
@@ -58,10 +51,12 @@ export default {
       .get(`http://localhost:8080/user/${payload.userId}/goals`)
       .then(data => {
         let goals = data.data;
-        console.log("fetch goals", goals);
+        commit(MUTATIONS.FETCH_GOALS, goals);
+        return goals;
+      })
+      .then(goals => {
         if (payload.isFirstFetch) commit(MUTATIONS.SET_CURRENT_GOAL_ID, goals[0].id);
         commit(MUTATIONS.SET_GOAL_IDS_ARRAY, setGoalIdsArray(goals));
-        commit(MUTATIONS.FETCH_GOALS, goals);
       })
       .catch(error => console.log(error));
   },

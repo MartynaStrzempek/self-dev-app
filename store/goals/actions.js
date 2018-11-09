@@ -35,13 +35,11 @@ export default {
     await axios
       .post(`http://localhost:8080/user/${userId}/goal/${goalId}/result`, {
         status: payload.status,
-        date: payload.resultId
+        date: payload.resultId,
+        note: payload.note
       })
       .then(() => dispatch(ACTIONS.FETCH_GOALS, { userId }))
       .catch(error => console.log(error))
-  },
-  setNote({ commit }, payload) {
-    commit(MUTATIONS.SET_NOTE, payload);
   },
   // setPresentScore({ commit }, payload) {
   //   commit(MUTATIONS.SET_PRESENT_SCORE, payload);

@@ -29,7 +29,7 @@ export default {
       status: "",
       isMarked: true,
       isGoalDone: true,
-      note: ""
+      note: null
     }
   },
   props: {
@@ -50,13 +50,9 @@ export default {
         await this.$store.dispatch(ACTIONS.SET_STATUS, {
           goalId: this.goalId,
           resultId: this.resultId,
-          status: this.status
+          status: this.status,
+          note: this.note
         });
-        // await this.$store.dispatch(ACTIONS.SET_NOTE, {
-        //   goalId: this.goalId,
-        //   resultId: this.resultId,
-        //   note: this.note,
-        // });
         if (this.status === "notDone" && this.note.length === 0) {
           this.$message({
             message: 'You can add note later!',

@@ -35,11 +35,7 @@ export default {
     },
     async save() {
       if (this.note.length > 0) {
-        // await this.$store.dispatch(ACTIONS.SET_NOTE, {
-        //   goalId: this.goalId,
-        //   resultId: this.resultId,
-        //   note: this.note
-        // });
+        //update result -> add note to result
         this.$message({
           message: 'Note saved!',
           type: 'success'

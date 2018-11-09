@@ -4,7 +4,7 @@
       <div class="title">Select result for this day:</div>
       <div class="radio-buttons">
         <el-radio class="radio-button" v-model="status" label="done">Done</el-radio>
-        <el-radio class="radio-button" v-model="status" label="subgoalDone">Subgoal done</el-radio>
+        <el-radio class="radio-button" v-model="status" label="partiallyDone">Subgoal done</el-radio>
         <el-radio class="radio-button" v-model="status" label="notDone">Not done</el-radio>
         <el-radio class="radio-button" v-model="status" label="unchecked">I don't remember</el-radio>
       </div>
@@ -52,11 +52,11 @@ export default {
           resultId: this.resultId,
           status: this.status
         });
-        await this.$store.dispatch(ACTIONS.SET_NOTE, {
-          goalId: this.goalId,
-          resultId: this.resultId,
-          note: this.note,
-        });
+        // await this.$store.dispatch(ACTIONS.SET_NOTE, {
+        //   goalId: this.goalId,
+        //   resultId: this.resultId,
+        //   note: this.note,
+        // });
         if (this.status === "notDone" && this.note.length === 0) {
           this.$message({
             message: 'You can add note later!',
@@ -64,7 +64,7 @@ export default {
           });
         }
         this.note = "";
-        this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, this.goalId);
+        // this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, this.goalId);
       } else {
         this.isMarked = false;
       }

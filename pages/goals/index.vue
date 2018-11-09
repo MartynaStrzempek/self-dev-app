@@ -42,9 +42,9 @@
           :key="index"
           :goalId="currentGoalId"/>
       </div>
-      <div class="statistic-chart col-lg-4">
-        <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="200" color="rgb(248, 160, 2)"></el-progress>
-      </div>
+      <!--<div class="statistic-chart col-lg-4">-->
+        <!--<el-progress type="circle" :percentage="getPercentagePresentScore()" :width="200" color="rgb(248, 160, 2)"></el-progress>-->
+      <!--</div>-->
     </div>
   </div>
 </template>
@@ -129,11 +129,11 @@ export default {
     }
   },
   async mounted() {
-    await this.$store.dispatch(ACTIONS.FETCH_GOALS, this.userId);
+    await this.$store.dispatch(ACTIONS.FETCH_GOALS, { userId: this.userId, isFirstFetch: true });
     await this.$store.dispatch(ACTIONS.FETCH_PRISE, this.goals);
 
     this.goals.map(goal => {
-      this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
+      // this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
     });
   }
 }

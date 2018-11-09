@@ -3,7 +3,7 @@
     <div class="title">Select today's result</div>
     <div class="radio-buttons">
       <el-radio class="radio-button" v-model="presentStatus" label="done">Done</el-radio>
-      <el-radio class="radio-button" v-model="presentStatus" label="subgoalDone">Subgoal done</el-radio>
+      <el-radio class="radio-button" v-model="presentStatus" label="partiallyDone">Subgoal done</el-radio>
       <el-radio class="radio-button" v-model="presentStatus" label="notDone">Not done</el-radio>
       <el-radio class="radio-button" v-model="presentStatus" label="unchecked">I don't remember</el-radio>
     </div>
@@ -55,7 +55,7 @@ export default {
         resultId: this.createResultId(),
         status: this.presentStatus
       });
-      this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, this.goalId);
+      // this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, this.goalId);
     }
   },
 }

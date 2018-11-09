@@ -39,7 +39,7 @@ export default {
   },
   mounted() {
     this.goals.map(goal => {
-      this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
+      // this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
     })
   }
 }

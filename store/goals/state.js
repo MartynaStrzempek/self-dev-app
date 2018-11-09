@@ -1,5 +1,5 @@
 export default {
-  currentGoalId: 0,
+  currentGoalId: null,
   goalIdsArray: [],
   goals: [],
   prises: [],

@@ -38,13 +38,13 @@ export default {
         date: payload.resultId,
         note: payload.note
       })
-      .then(() => dispatch(ACTIONS.FETCH_GOALS, { userId }))
+      .then(() => dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: goalId }))
       .catch(error => console.log(error))
   },
-  // setPresentScore({ commit }, payload) {
-  //   commit(MUTATIONS.SET_PRESENT_SCORE, payload);
-  // },
-  async fetchGoals({ commit }, payload) {
+  setPresentScore({ commit }, payload) {
+    commit(MUTATIONS.SET_PRESENT_SCORE, payload);
+  },
+  async fetchGoals({ commit, dispatch }, payload) {
     await axios
       .get(`http://localhost:8080/user/${payload.userId}/goals`)
       .then(data => {
@@ -54,6 +54,7 @@ export default {
       })
       .then(goals => {
         if (payload.isFirstFetch) commit(MUTATIONS.SET_CURRENT_GOAL_ID, goals[0].id);
+        else dispatch(ACTIONS.SET_PRESENT_SCORE, payload.goalId);
         commit(MUTATIONS.SET_GOAL_IDS_ARRAY, setGoalIdsArray(goals));
       })
       .catch(error => console.log(error));

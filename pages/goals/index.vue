@@ -42,9 +42,9 @@
           :key="index"
           :goalId="currentGoalId"/>
       </div>
-      <!--<div class="statistic-chart col-lg-4">-->
-        <!--<el-progress type="circle" :percentage="getPercentagePresentScore()" :width="200" color="rgb(248, 160, 2)"></el-progress>-->
-      <!--</div>-->
+      <div class="statistic-chart col-lg-4">
+        <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="200" color="rgb(248, 160, 2)"></el-progress>
+      </div>
     </div>
   </div>
 </template>
@@ -109,7 +109,7 @@ export default {
           duration: 0
         });
       }
-      return percentagePresentScore;
+      return percentagePresentScore ? percentagePresentScore : 0;
     },
     nextGoal() {
       const index = this.goalIdsArray.indexOf(this.currentGoalId);
@@ -133,7 +133,7 @@ export default {
     await this.$store.dispatch(ACTIONS.FETCH_PRISE, this.goals);
 
     this.goals.map(goal => {
-      // this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
+      this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
     });
   }
 }

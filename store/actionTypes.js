@@ -14,3 +14,4 @@ export const FETCH_GOALS = "fetchGoals";
 export const FETCH_PRISE = "fetchPrise";
 export const UPDATE_RESULT = "updateResult";
 export const UPDATE_GOAL = "updateGoal";
+export const DELETE_GOAL = "deleteGoal";

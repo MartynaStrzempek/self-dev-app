@@ -75,7 +75,7 @@ export default {
     });
   },
   updateResult({ dispatch }, payload) {
-    console.log("update", payload)
+    // console.log("update", payload)
     const { resultId, goalId, updatedResult } = payload;
     const userId = store().getters["getUserId"];
     axios
@@ -89,8 +89,18 @@ export default {
     axios
       .put(`http://localhost:8080/user/${userId}/goal/${goalId}`, { ...editedGoal, priseId })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: goalId })
+      })
+      .catch(error => console.log(error))
+  },
+  deleteGoal({ commit, dispatch }, payload) {
+    const userId = store().getters["getUserId"];
+    axios
+      .delete(`http://localhost:8080/goals/${payload.goalId}`)
+      .then(() => {
+        dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: payload.goalId })
+        commit(MUTATIONS.SET_CURRENT_GOAL_ID, payload.goalIndex);
       })
       .catch(error => console.log(error))
   }

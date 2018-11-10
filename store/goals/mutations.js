@@ -9,7 +9,7 @@ export default {
    setTimeout(() => {
      let prise = state.prises.find(prise => prise.goalId === goalId);
      let goal = state.goals.find(goal => goal.id === goalId);
-     console.log("state", state.goals, goalId, goal)
+     // console.log("state", state.goals, goalId, goal)
      Vue.set(prise, "presentScore", countPoints(goal.Results));
    }, 100)
   },

@@ -15,6 +15,7 @@
       <div class="buttons col-sm-3">
         <el-button class="add-button" type="primary" icon="el-icon-plus" circle @click="addGoal"></el-button>
         <el-button class="edit-button" icon="el-icon-edit" circle @click="editGoal"></el-button>
+        <el-button class="delete-button" icon="el-icon-delete" circle @click="deleteGoal"></el-button>
       </div>
     </div>
     <div class="row middle-area">
@@ -95,11 +96,21 @@ export default {
     goalIdsArray() {
       return this.$store.getters["getGoalIdsArray"];
     },
+    goalIdToSetAsCurrent() {
+      let currentGoalIndex = this.goalIdsArray.indexOf(this.currentGoalId);
+      return this.goalIdsArray[currentGoalIndex - 1];
+    },
     prise() {
       return this.$store.getters["getTargetPrise"](this.currentGoalId);
     }
   },
   methods: {
+    deleteGoal() {
+      this.$store.dispatch(ACTIONS.DELETE_GOAL, {
+        goalId: this.currentGoalId,
+        goalIndex: this.goalIdToSetAsCurrent
+      });
+    },
     getPercentagePresentScore() {
       const percentagePresentScore = this.prise ? Math.round(this.prise.presentScore / this.prise.score * 100) : 0;
       if (percentagePresentScore >= 100) {

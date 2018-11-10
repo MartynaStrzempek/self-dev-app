@@ -35,7 +35,16 @@ export default {
   props: {
     visibility: Boolean,
     goalId: Number,
-    resultId: String,
+    resultDate: String,
+  },
+  computed: {
+    goal() {
+      return this.$store.getters["getTargetGoal"](this.goalId);
+    },
+    targetResult() {
+      const result = this.goal.Results.find(result => result.date === this.resultDate);
+      return result ? result : null;
+    }
   },
   methods: {
     cancel() {
@@ -47,12 +56,24 @@ export default {
       if (this.status.length > 0) {
         this.isMarked = true;
         this.$store.dispatch(ACTIONS.CLOSE_SET_RESULT_MODAL);
-        await this.$store.dispatch(ACTIONS.SET_RESULT, {
-          goalId: this.goalId,
-          resultId: this.resultId,
-          status: this.status,
-          note: this.note
-        });
+        if (this.targetResult) {
+          await this.$store.dispatch(ACTIONS.UPDATE_RESULT, {
+            goalId: this.goalId,
+            resultId: this.targetResult.id,
+            updatedResult: {
+              status: this.status,
+              note: this.note
+            }
+          });
+        }
+        else {
+          await this.$store.dispatch(ACTIONS.SET_RESULT, {
+            goalId: this.goalId,
+            resultDate: this.resultDate,
+            status: this.status,
+            note: this.note
+          });
+        }
         if (this.status === "notDone" && this.note.length === 0) {
           this.$message({
             message: 'You can add note later!',

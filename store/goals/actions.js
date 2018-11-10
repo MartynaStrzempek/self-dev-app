@@ -35,7 +35,7 @@ export default {
     await axios
       .post(`http://localhost:8080/user/${userId}/goal/${goalId}/result`, {
         status: payload.status,
-        date: payload.resultId,
+        date: payload.resultDate,
         note: payload.note
       })
       .then(() => dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: goalId }))
@@ -56,6 +56,7 @@ export default {
         if (payload.isFirstFetch) commit(MUTATIONS.SET_CURRENT_GOAL_ID, goals[0].id);
         else dispatch(ACTIONS.SET_PRESENT_SCORE, payload.goalId);
         commit(MUTATIONS.SET_GOAL_IDS_ARRAY, setGoalIdsArray(goals));
+        console.log(goals)
         return goals;
       })
       .then(goals => dispatch(ACTIONS.FETCH_PRISE, goals))
@@ -66,16 +67,31 @@ export default {
       let priseId = goal.PriseId;
       axios
         .get(`http://localhost:8080/prises/${priseId}`)
-        .then (data => commit(MUTATIONS.FETCH_PRISE, { ...data.data, goalId: goal.id }))
+        .then (data => {
+          // console.log(data.data)
+          commit(MUTATIONS.FETCH_PRISE, { ...data.data, goalId: goal.id })
+        })
         .catch(error => console.log(error))
     });
   },
   updateResult({ dispatch }, payload) {
+    console.log("update", payload)
     const { resultId, goalId, updatedResult } = payload;
     const userId = store().getters["getUserId"];
     axios
       .put(`http://localhost:8080/result/${resultId}`, { ...updatedResult })
       .then(() => dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: goalId }))
+      .catch(error => console.log(error))
+  },
+  updateGoal({ dispatch }, payload) {
+    const userId = store().getters["getUserId"];
+    const { goalId, priseId, editedGoal } = payload;
+    axios
+      .put(`http://localhost:8080/user/${userId}/goal/${goalId}`, { ...editedGoal, priseId })
+      .then((response) => {
+        console.log(response);
+        dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: goalId })
+      })
       .catch(error => console.log(error))
   }
 }

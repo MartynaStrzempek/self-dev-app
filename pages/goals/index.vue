@@ -6,6 +6,7 @@
       :editing="editing"
       :edited-goal="currentGoal"/>
     <div class="row header">
+      Prise: {{ prise }}
       <div class="goal-name col-sm-9">
         <transition name="fade" mode="out-in">
           <h1 v-if="goalIdsArray[index] === currentGoalId" v-for="(goal, index) in goals" :key="index">{{ goal.goalName }}</h1>

@@ -7,63 +7,78 @@
       <el-radio class="radio-button" v-model="presentStatus" label="notDone">Not done</el-radio>
       <el-radio class="radio-button" v-model="presentStatus" label="unchecked">I don't remember</el-radio>
     </div>
-    <note-modal :visibility="noteModalVisibility" :goal-id="goalId" :result-id="resultId"/>
+    <note-modal :visibility="noteModalVisibility" :goal-id="goalId" :result-id="resultId" :status-id="statusId"/>
   </div>
 </template>
 
 <script>
-import * as ACTIONS from "../../store/actionTypes.js";
-import NoteModal from "../../components/noteModal/noteModal.vue";
-export default {
-  data() {
-    return {
-      presentStatus: '',
-    }
-  },
-  computed: {
-    goalId() {
-      return this.$store.getters["getCurrentGoalId"];
+  import * as ACTIONS from "../../store/actionTypes.js";
+  import NoteModal from "../../components/noteModal/noteModal.vue";
+  export default {
+    data() {
+      return {
+        presentStatus: '',
+      }
     },
-    goal() {
-      return this.$store.getters["getTargetGoal"](this.goalId);
+    computed: {
+      goalId() {
+        return this.$store.getters["getCurrentGoalId"];
+      },
+      goal() {
+        return this.$store.getters["getTargetGoal"](this.goalId);
+      },
+      resultId() {
+        let result = this.goal.Results.find(result => result.date === this.createResultDate());
+        return result ? result.id : null;
+      },
+      statusId() {
+        let result = this.goal.Results.find(result => result.date === this.createResultDate());
+        return result ? result.StatusId : null;
+      },
+      noteModalVisibility() {
+        return this.$store.getters["getNoteModalVisibility"];
+      }
     },
-    resultId() {
-      const result = this.goal.Results.find(result => result.date === this.createResultDate());
-      return result ? result.id : null;
+    components: {
+      NoteModal,
     },
-    noteModalVisibility() {
-      return this.$store.getters["getNoteModalVisibility"];
-    }
-  },
-  components: {
-    NoteModal,
-  },
-  methods: {
-    createResultDate() {
-      const today = new Date();
-      let year,
-        month = today.getMonth() + 1,
-        day = today.getDate();
+    methods: {
+      createResultDate() {
+        const today = new Date();
+        let year,
+          month = today.getMonth() + 1,
+          day = today.getDate();
 
-      if (day.toString().length < 2) day = `0${day}`;
-      if (month.toString().length < 2) month = `0${month}`;
+        if (day.toString().length < 2) day = `0${day}`;
+        if (month.toString().length < 2) month = `0${month}`;
 
-      year = today.getFullYear();
+        year = today.getFullYear();
 
-      return `${year}-${month}-${day}`;
-    }
-  },
-  watch: {
-    presentStatus: function() {
-      if (this.presentStatus === "notDone") this.$store.dispatch(ACTIONS.OPEN_NOTE_MODAL);
-      this.$store.dispatch(ACTIONS.SET_RESULT, {
-        goalId: this.goalId,
-        resultId: this.createResultDate(),
-        status: this.presentStatus
-      });
-    }
+        return `${year}-${month}-${day}`;
+      }
+    },
+    watch: {
+      presentStatus: function() {
+        if (this.presentStatus === "notDone") this.$store.dispatch(ACTIONS.OPEN_NOTE_MODAL);
+        if (this.resultId) {
+          this.$store.dispatch(ACTIONS.UPDATE_RESULT, {
+            goalId: this.goalId,
+            resultId: this.resultId,
+            updatedResult: {
+              status: this.presentStatus
+            }
+          });
+        }
+        else {
+          this.$store.dispatch(ACTIONS.SET_RESULT, {
+            goalId: this.goalId,
+            resultDate: this.createResultDate(),
+            status: this.presentStatus
+          });
+        }
+      }
+    },
   }
-}
 </script>
 
 <style scoped lang="scss">

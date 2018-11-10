@@ -3,7 +3,7 @@
     <set-result-modal
       :visibility="setResultModalVisibility"
       :goal-id="goal.id"
-      :result-id="clickedDayId"/>
+      :result-date="clickedDayId"/>
     <table id="table">
       <tr v-for="(dayId, rowId) in dayIds" :key="rowId" class="row">
         <td

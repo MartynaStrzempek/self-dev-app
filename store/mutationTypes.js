@@ -1,5 +1,4 @@
 export const SET_CURRENT_GOAL_ID = "setCurrentGoalId";
-export const EDIT_GOAL = "editGoal";
 export const OPEN_MODAL = "openModal";
 export const CLOSE_MODAL = "closeModal";
 export const OPEN_SET_RESULT_MODAL = "openSetResultModal";

@@ -23,6 +23,7 @@ export default {
     visibility: Boolean,
     goalId: Number,
     resultId: Number,
+    statusId: Number
   },
   methods: {
     cancel() {
@@ -38,7 +39,7 @@ export default {
         this.$store.dispatch(ACTIONS.UPDATE_RESULT, {
           goalId: this.goalId,
           resultId: this.resultId,
-          updatedResult: { note: this.note }
+          updatedResult: { note: this.note, statusId: this.statusId }
         });
         this.$message({
           message: 'Note saved!',

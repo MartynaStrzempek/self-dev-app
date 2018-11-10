@@ -27,13 +27,27 @@ import * as ACTIONS from "../../store/actionTypes";
 export default {
   data() {
     return {
-      form: {
-        goalName: '',
-        subGoalName: '',
-        reward: '',
-        scoreForReward: null
-      },
       isFilled: true,
+    }
+  },
+  computed: {
+    prise() {
+      return this.$store.getters["getTargetPrise"](this.editedGoal.id);
+    },
+    form() {
+      return this.editing
+        ? {
+          goalName: this.editedGoal.goalName,
+          subGoalName: this.editedGoal.subgoalName,
+          reward: this.prise.description,
+          scoreForReward: this.prise.score
+        }
+        : {
+          goalName: '',
+          subGoalName: '',
+          reward: '',
+          scoreForReward: null
+        }
     }
   },
   props: {
@@ -45,20 +59,26 @@ export default {
   methods: {
     async save(){
       if (this.form.goalName.length > 0 && this.form.subGoalName.length > 0) {
-        if (this.editing) await this.$store.dispatch(ACTIONS.EDIT_GOAL, {
-          editedGoal: this.form,
-          editedGoalId: this.editedGoal.id
+        if (this.editing) await this.$store.dispatch(ACTIONS.UPDATE_GOAL, {
+          editedGoal: {
+            description: this.form.reward,
+            score: this.form.scoreForReward,
+            goalName: this.form.goalName,
+            subgoalName: this.form.subGoalName
+          },
+          goalId: this.editedGoal.id,
+          priseId: this.editedGoal.PriseId
         });
         else await this.$store.dispatch(ACTIONS.ADD_GOAL, this.form);
 
         this.$store.dispatch(ACTIONS.CLOSE_MODAL);
         this.isFilled = true;
-        this.form = {
-          goalName: '',
-          subGoalName: '',
-          reward: '',
-          scoreForReward: null
-        };
+        // this.form = {
+        //   goalName: '',
+        //   subGoalName: '',
+        //   reward: '',
+        //   scoreForReward: null
+        // };
       }
       else {
         this.isFilled = false;
@@ -68,28 +88,8 @@ export default {
       this.$store.dispatch(ACTIONS.CLOSE_MODAL);
       this.isFilled = true;
     }
-  },
-  watch: {
-    editing: function () {
-      if (this.editing) {
-        this.form = {
-          goalName: this.editedGoal.goalName,
-          subGoalName: this.editedGoal.subGoalName,
-          reward: this.editedGoal.reward,
-          scoreForReward: this.editedGoal.scoreForReward
-        }
-      } else {
-        this.form = {
-          goalName: '',
-          subGoalName: '',
-          reward: '',
-          scoreForReward: null
-        };
-      }
-    }
-  },
+  }
 }
-//if edited -> fill in inputs with edited goal data and execute function which filter goals prop to edit current goal
 </script>
 
 <style scoped lang="scss">

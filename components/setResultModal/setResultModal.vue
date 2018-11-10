@@ -47,7 +47,7 @@ export default {
       if (this.status.length > 0) {
         this.isMarked = true;
         this.$store.dispatch(ACTIONS.CLOSE_SET_RESULT_MODAL);
-        await this.$store.dispatch(ACTIONS.SET_STATUS, {
+        await this.$store.dispatch(ACTIONS.SET_RESULT, {
           goalId: this.goalId,
           resultId: this.resultId,
           status: this.status,
@@ -59,8 +59,7 @@ export default {
             type: 'warning'
           });
         }
-        this.note = "";
-        // this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, this.goalId);
+        this.note = null;
       } else {
         this.isMarked = false;
       }

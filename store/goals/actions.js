@@ -28,7 +28,7 @@ export default {
   async editGoal({ commit }, payload) {
     // commit(MUTATIONS.EDIT_GOAL, editedGoal);
   },
-  async setStatus({ dispatch }, payload) {
+  async setResult({ dispatch }, payload) {
     const userId = store().getters["getUserId"],
       goalId = payload.goalId;
 
@@ -56,7 +56,9 @@ export default {
         if (payload.isFirstFetch) commit(MUTATIONS.SET_CURRENT_GOAL_ID, goals[0].id);
         else dispatch(ACTIONS.SET_PRESENT_SCORE, payload.goalId);
         commit(MUTATIONS.SET_GOAL_IDS_ARRAY, setGoalIdsArray(goals));
+        return goals;
       })
+      .then(goals => dispatch(ACTIONS.FETCH_PRISE, goals))
       .catch(error => console.log(error));
   },
   fetchPrise({ commit }, goals) {
@@ -67,5 +69,13 @@ export default {
         .then (data => commit(MUTATIONS.FETCH_PRISE, { ...data.data, goalId: goal.id }))
         .catch(error => console.log(error))
     });
+  },
+  updateResult({ dispatch }, payload) {
+    const { resultId, goalId, updatedResult } = payload;
+    const userId = store().getters["getUserId"];
+    axios
+      .put(`http://localhost:8080/result/${resultId}`, { ...updatedResult })
+      .then(() => dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: goalId }))
+      .catch(error => console.log(error))
   }
 }

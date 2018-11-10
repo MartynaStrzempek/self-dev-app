@@ -7,7 +7,7 @@
       <el-radio class="radio-button" v-model="presentStatus" label="notDone">Not done</el-radio>
       <el-radio class="radio-button" v-model="presentStatus" label="unchecked">I don't remember</el-radio>
     </div>
-    <note-modal :visibility="noteModalVisibility" :goal-id="goalId" :result-id="createResultId()"/>
+    <note-modal :visibility="noteModalVisibility" :goal-id="goalId" :result-id="resultId"/>
   </div>
 </template>
 
@@ -24,6 +24,13 @@ export default {
     goalId() {
       return this.$store.getters["getCurrentGoalId"];
     },
+    goal() {
+      return this.$store.getters["getTargetGoal"](this.goalId);
+    },
+    resultId() {
+      const result = this.goal.Results.find(result => result.date === this.createResultDate());
+      return result ? result.id : null;
+    },
     noteModalVisibility() {
       return this.$store.getters["getNoteModalVisibility"];
     }
@@ -32,32 +39,30 @@ export default {
     NoteModal,
   },
   methods: {
-    createResultId() {
+    createResultDate() {
       const today = new Date();
-      let day, month, year;
+      let year,
+        month = today.getMonth() + 1,
+        day = today.getDate();
 
-      if (today.getDate().toString().length < 2) day = `0${today.getDate()}`;
-      else day = today.getDate();
-
-      if (today.getMonth().toString().length < 2) month = `0${today.getMonth() + 1}`;
-      else month = today.getMonth() + 1;
+      if (day.toString().length < 2) day = `0${day}`;
+      if (month.toString().length < 2) month = `0${month}`;
 
       year = today.getFullYear();
 
-      return `${day}-${month}-${year}`;
+      return `${year}-${month}-${day}`;
     }
   },
   watch: {
     presentStatus: function() {
       if (this.presentStatus === "notDone") this.$store.dispatch(ACTIONS.OPEN_NOTE_MODAL);
-      this.$store.dispatch(ACTIONS.SET_STATUS, {
+      this.$store.dispatch(ACTIONS.SET_RESULT, {
         goalId: this.goalId,
-        resultId: this.createResultId(),
+        resultId: this.createResultDate(),
         status: this.presentStatus
       });
-      // this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, this.goalId);
     }
-  },
+  }
 }
 </script>
 

@@ -38,7 +38,7 @@ export default {
   watch: {
     status: function() {
       if (!this.isInModal) {
-        this.$store.dispatch(ACTIONS.SET_STATUS, {
+        this.$store.dispatch(ACTIONS.SET_RESULT, {
           goalId: this.goalId,
           resultId: this.createResultId(),
           status: this.status

@@ -36,11 +36,6 @@ export default {
   },
   components: {
     CalendarChart,
-  },
-  mounted() {
-    this.goals.map(goal => {
-      // this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
-    })
   }
 }
 </script>

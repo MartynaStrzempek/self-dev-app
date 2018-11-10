@@ -16,13 +16,13 @@ import * as ACTIONS from "../../store/actionTypes.js";
 export default {
   data() {
     return {
-      note: ""
+      note: null
     }
   },
   props: {
     visibility: Boolean,
     goalId: Number,
-    resultId: String,
+    resultId: Number,
   },
   methods: {
     cancel() {
@@ -35,7 +35,11 @@ export default {
     },
     async save() {
       if (this.note.length > 0) {
-        //update result -> add note to result
+        this.$store.dispatch(ACTIONS.UPDATE_RESULT, {
+          goalId: this.goalId,
+          resultId: this.resultId,
+          updatedResult: { note: this.note }
+        });
         this.$message({
           message: 'Note saved!',
           type: 'success'
@@ -48,7 +52,7 @@ export default {
         });
       }
       this.$store.dispatch(ACTIONS.CLOSE_NOTE_MODAL);
-      this.note = ""
+      this.note = null
     }
   }
 }

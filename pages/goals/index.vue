@@ -100,7 +100,7 @@ export default {
   },
   methods: {
     getPercentagePresentScore() {
-      const percentagePresentScore = Math.round(this.prise.presentScore / this.prise.score * 100);
+      const percentagePresentScore = this.prise ? Math.round(this.prise.presentScore / this.prise.score * 100) : 0;
       if (percentagePresentScore >= 100) {
         this.$notify({
           title: 'Score!',
@@ -130,7 +130,6 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch(ACTIONS.FETCH_GOALS, { userId: this.userId, isFirstFetch: true });
-    await this.$store.dispatch(ACTIONS.FETCH_PRISE, this.goals);
 
     this.goals.map(goal => {
       this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);

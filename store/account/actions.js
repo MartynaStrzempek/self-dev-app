@@ -6,13 +6,25 @@ export default {
   },
   registerUser({ commit }, payload) {
     axios
-      .post(`http://localhost:8080/user`, { ...payload })
+      .post(`http://localhost:8080/user`, {
+        ...payload
+      }, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(response => commit(MUTATIONS.SET_USER_ID, response.data.id))
       .catch(error => console.log(error))
   },
   login({ commit }, payload) {
     axios
-      .post("http://localhost:8080/login", { ...payload })
+      .post("http://localhost:8080/login", {
+        ...payload
+      }, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(response => {
         console.log("login", response.data);
         // commit(MUTATIONS.SET_TOKEN, response.data.token);

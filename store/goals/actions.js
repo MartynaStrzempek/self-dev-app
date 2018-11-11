@@ -42,6 +42,10 @@ export default {
         status: payload.status,
         date: payload.resultDate,
         note: payload.note
+      }, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
       })
       .then(() => dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: goalId }))
       .catch(error => console.log(error))
@@ -51,7 +55,11 @@ export default {
   },
   async fetchGoals({ commit, dispatch }, payload) {
     await axios
-      .get(`http://localhost:8080/user/${payload.userId}/goals`)
+      .get(`http://localhost:8080/user/${payload.userId}/goals`, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(data => {
         let goals = data.data;
         commit(MUTATIONS.FETCH_GOALS, goals);
@@ -71,7 +79,11 @@ export default {
     goals.map(goal => {
       let priseId = goal.PriseId;
       axios
-        .get(`http://localhost:8080/prises/${priseId}`)
+        .get(`http://localhost:8080/prises/${priseId}`, {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+          }
+        })
         .then (data => {
           // console.log(data.data)
           commit(MUTATIONS.FETCH_PRISE, { ...data.data, goalId: goal.id })
@@ -84,7 +96,13 @@ export default {
     const { resultId, goalId, updatedResult } = payload;
     const userId = store().getters["getUserId"];
     axios
-      .put(`http://localhost:8080/result/${resultId}`, { ...updatedResult })
+      .put(`http://localhost:8080/result/${resultId}`, {
+        ...updatedResult
+      }, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(() => dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: goalId }))
       .catch(error => console.log(error))
   },
@@ -92,7 +110,13 @@ export default {
     const userId = store().getters["getUserId"];
     const { goalId, priseId, editedGoal } = payload;
     axios
-      .put(`http://localhost:8080/user/${userId}/goal/${goalId}`, { ...editedGoal, priseId })
+      .put(`http://localhost:8080/user/${userId}/goal/${goalId}`, {
+        ...editedGoal, priseId
+      }, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then((response) => {
         // console.log(response);
         dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: goalId })
@@ -102,7 +126,11 @@ export default {
   deleteGoal({ commit, dispatch }, payload) {
     const userId = store().getters["getUserId"];
     axios
-      .delete(`http://localhost:8080/goals/${payload.goalId}`)
+      .delete(`http://localhost:8080/goals/${payload.goalId}`, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+      })
       .then(() => {
         dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: payload.goalId })
         commit(MUTATIONS.SET_CURRENT_GOAL_ID, payload.goalIndex);

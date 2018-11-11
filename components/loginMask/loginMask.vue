@@ -4,14 +4,15 @@
     <el-form class="form">
       <p class="input-text hidden">Login</p>
       <input placeholder="Login" v-model="form.login" class="input" required>
+      <input type="email" placeholder="E-mail" v-model="form.email" class="input" v-if="!isLogin" required>
       <p class="input-text hidden">Password</p>
       <input type="password" placeholder="Password" v-model="form.password" class="input" required>
       <p class="input-text hidden">Repeat Password</p>
-      <input type="password" placeholder="Repeat Password" v-model="form.repeatedPassword" class="input" :class="{ hidden: isLogin }" required/>
-      <p class="validation-text" :class="{ hidden: isFormFilled }">Every input must be filled!</p>
-      <p class="validation-text" :class="{ hidden: arePasswordsMatch }">Passwords do not match. Check them again!</p>
-      <p class="validation-text" :class="{ hidden: isLoginCorrect }">I'm sorry, user with this login doesn't exist</p>
-      <p class="validation-text" :class="{ hidden: isPasswordCorrect }">Password is'nt correct!</p>
+      <input type="password" placeholder="Repeat Password" v-model="form.repeatedPassword" class="input" v-if="!isLogin" required/>
+      <p class="validation-text" v-if="!isFormFilled">Every input must be filled!</p>
+      <p class="validation-text" v-if="!arePasswordsMatch">Passwords do not match. Check them again!</p>
+      <p class="validation-text" v-if="!isLoginCorrect">I'm sorry, user with this login doesn't exist</p>
+      <p class="validation-text" v-if="!isPasswordCorrect">Password is'nt correct!</p>
       <el-button type="primary" @click="confirm" class="button">{{ buttonText }}</el-button>
     </el-form>
   </div>
@@ -26,7 +27,8 @@ export default {
       form: {
         login: "",
         password: "",
-        repeatedPassword: ""
+        repeatedPassword: "",
+        email: ""
       },
       isFormFilled: true,
       arePasswordsMatch: true,
@@ -64,7 +66,11 @@ export default {
           }
         }
         else {
-          await this.$store.dispatch(ACTIONS.ADD_USER, this.form);
+          await this.$store.dispatch(ACTIONS.REGISTER_USER, {
+            login: this.form.login,
+            email: this.form.email,
+            password: this.form.password
+          });
           await this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, true);
           this.$message({
             message: 'Congratulations, You just have registered!',
@@ -75,13 +81,13 @@ export default {
       }
     },
     validate() {
-      const { login, password, repeatedPassword } = this.form;
+      const { login, password, repeatedPassword, email } = this.form;
       if (this.isLogin) {
         this.isFormFilled = login.length > 0 && password.length > 0;
         this.arePasswordsMatch = true;
       }
       else {
-        this.isFormFilled = login.length > 0 && password.length > 0 && repeatedPassword.length > 0;
+        this.isFormFilled = login.length > 0 && password.length > 0 && repeatedPassword.length > 0 && email.length > 0;
         if (password.length > 0 && repeatedPassword.length > 0) {
           this.arePasswordsMatch = password === repeatedPassword;
         }

@@ -11,3 +11,4 @@ export const SET_PRESENT_SCORE = "setPresentScore";
 export const FETCH_GOALS = "fetchGoals";
 export const SET_GOAL_IDS_ARRAY = "setGoalIdsArray";
 export const FETCH_PRISE = "fetchPrise";
+export const SET_USER_ID = "setUserId";

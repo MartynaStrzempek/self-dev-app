@@ -10,6 +10,7 @@ export default {
   },
   async addGoal({ commit, dispatch }, goal) {
     const userId = store().getters["getUserId"];
+    console.log("id", userId)
     await axios
       .post(`http://localhost:8080/user/${userId}/goal`, {
         description: goal.reward,

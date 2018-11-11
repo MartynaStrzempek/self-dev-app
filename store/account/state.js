@@ -1,6 +1,6 @@
 export default {
   isLogedIn: false,
-  userId: 2,
+  userId: null,
   users: [
     {
       id: 0,

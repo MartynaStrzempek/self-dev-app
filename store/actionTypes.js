@@ -6,7 +6,6 @@ export const OPEN_SET_RESULT_MODAL = "openSetResultModal";
 export const CLOSE_SET_RESULT_MODAL = "closeSetResultModal";
 export const SET_RESULT = "setResult";
 export const SET_LOGIN_STATE = "setLoginState";
-export const ADD_USER = "addUser";
 export const OPEN_NOTE_MODAL = "openNoteModal";
 export const CLOSE_NOTE_MODAL = "closeNoteModal";
 export const SET_PRESENT_SCORE = "setPresentScore";
@@ -16,3 +15,5 @@ export const UPDATE_RESULT = "updateResult";
 export const UPDATE_GOAL = "updateGoal";
 export const DELETE_GOAL = "deleteGoal";
 export const REGISTER_USER = "registerUser";
+export const FETCH_USERS = "fetchUsers";
+

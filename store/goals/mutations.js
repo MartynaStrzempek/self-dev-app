@@ -21,5 +21,11 @@ export default {
   },
   fetchPrise(state, prise) {
     state.prises.push(prise);
+  },
+  clearState(state) {
+    Vue.set(state, "currentGoalId", null);
+    Vue.set(state, "goalIdsArray", []);
+    Vue.set(state, "prises", []);
+    Vue.set(state, "goals", []);
   }
 }

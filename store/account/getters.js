@@ -1,7 +1,6 @@
 export default {
-  getTargetUser: state => login => state.users.filter(user => user.login === login)[0],
+  getTargetUser: state => login => state.users.find(user => user.login === login),
   getLoginState: state => state.isLogedIn,
   getUserId: state => state.userId,
+  getUsers: state => state.users,
 }
-
-// wez usera po loginie, nie po id. sprawdz czy user istnieje z takim loginem, jesli nie to komunikat, jesli tak to sprwdz poprawnosc hasla

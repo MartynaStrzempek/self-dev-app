@@ -20,6 +20,7 @@
 
 <script>
 import * as ACTIONS from "../../store/actionTypes.js";
+import * as MUTATIONS from "../../store/mutationTypes.js";
 import Vue from "vue";
 export default {
   data() {
@@ -42,27 +43,35 @@ export default {
     title: String,
   },
   computed: {
-
+    targetUser() {
+      return this.$store.getters["getTargetUser"](this.form.login);
+    },
+    users() {
+      return this.$store.getters["getUsers"];
+    }
   },
   methods: {
     async confirm() {
       let canConfirm = this.validate();
       if (canConfirm) {
         if (this.isLogin) {
-          const user = this.getUser(this.form.login);
-          if (user) {
-            this.isLoginCorrect = true;
-            if (user.password === this.form.password) {
-              this.isPasswordCorrect = true;
-              this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, true);
-              setTimeout(() => this.$router.push('goals'), 500);
+          await this.$store.dispatch(ACTIONS.FETCH_USERS);
+          if (this.users) {
+            if (this.targetUser) {
+              this.isLoginCorrect = true;
+              if (this.targetUser.password === this.form.password) {
+                this.isPasswordCorrect = true;
+                this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, true);
+                this.$store.commit(MUTATIONS.SET_USER_ID, this.targetUser.id);
+                setTimeout(() => this.$router.push('goals'), 500);
+              }
+              else {
+                this.isPasswordCorrect = false;
+              }
             }
             else {
-              this.isPasswordCorrect = false;
+              this.isLoginCorrect = false;
             }
-          }
-          else {
-            this.isLoginCorrect = false;
           }
         }
         else {
@@ -93,9 +102,6 @@ export default {
         }
       }
       return this.arePasswordsMatch && this.isFormFilled;
-    },
-    getUser(login) {
-      return this.$store.getters["getTargetUser"](login);
     }
   },
   mounted() {

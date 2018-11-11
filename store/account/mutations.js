@@ -6,5 +6,8 @@ export default {
   },
   setUserId(state, userId) {
     Vue.set(state, "userId", userId);
+  },
+  fetchUsers(state, users) {
+    Vue.set(state, "users", users);
   }
 }

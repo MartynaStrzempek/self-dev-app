@@ -10,13 +10,17 @@ export default {
   },
   async addGoal({ commit, dispatch }, goal) {
     const userId = store().getters["getUserId"];
-    console.log("id", userId)
+    // console.log("local", localStorage.getItem('token'))
     await axios
       .post(`http://localhost:8080/user/${userId}/goal`, {
         description: goal.reward,
         score: goal.scoreForReward,
         goalName: goal.goalName,
         subgoalName: goal.subGoalName
+      }, {
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
       })
       .then(response => {
         let lastGoalId = response.data.id;

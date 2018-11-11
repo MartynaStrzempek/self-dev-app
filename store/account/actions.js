@@ -15,7 +15,9 @@ export default {
       .post("http://localhost:8080/login", { ...payload })
       .then(response => {
         console.log("login", response.data);
-        commit(MUTATIONS.SET_TOKEN, response.data.token);
+        // commit(MUTATIONS.SET_TOKEN, response.data.token);
+        localStorage.setItem('token', response.data.token);
+        // console.log("local", localStorage.getItem('token'))
         commit(MUTATIONS.SET_USER_ID, response.data.userId);
       })
       .then(() => {

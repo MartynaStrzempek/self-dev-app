@@ -20,6 +20,8 @@
 
 <script>
 import Logo from "../../components/logo/logo.vue";
+import * as ACTIONS from "../../store/actionTypes.js";
+import * as MUTATIONS from "../../store/mutationTypes.js";
 export default {
   components: {
     Logo
@@ -31,7 +33,8 @@ export default {
   },
   methods: {
     async logout() {
-      await this.$store.commit("setLoginState", false);
+      await this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, false);
+      await this.$store.commit(MUTATIONS.SET_USER_ID, null);
       setTimeout(() => this.$router.push('/'), 1000);
     }
   }

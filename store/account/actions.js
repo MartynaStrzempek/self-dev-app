@@ -10,13 +10,22 @@ export default {
       .then(response => commit(MUTATIONS.SET_USER_ID, response.data.id))
       .catch(error => console.log(error))
   },
-  fetchUsers({ commit }) {
+  login({ commit }, payload) {
     axios
-      .get("http://localhost:8080/users")
+      .post("http://localhost:8080/login", { ...payload })
       .then(response => {
-        console.log(response.data)
-        commit(MUTATIONS.FETCH_USERS, response.data)
+        console.log("login", response.data);
+        commit(MUTATIONS.SET_TOKEN, response.data.token);
+        commit(MUTATIONS.SET_USER_ID, response.data.userId);
       })
-      .catch(error => console.log(error))
+      .then(() => {
+        commit(MUTATIONS.SET_LOGIN_STATE, true);
+        commit(MUTATIONS.SET_LOGIN_STATUS, false);
+        setTimeout(() => this.$router.push('goals'), 500);
+      })
+      .catch(error => {
+        console.log("err", error);
+        commit(MUTATIONS.SET_LOGIN_STATUS, true);
+      });
   }
 }

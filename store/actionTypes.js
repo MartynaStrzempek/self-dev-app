@@ -15,5 +15,5 @@ export const UPDATE_RESULT = "updateResult";
 export const UPDATE_GOAL = "updateGoal";
 export const DELETE_GOAL = "deleteGoal";
 export const REGISTER_USER = "registerUser";
-export const FETCH_USERS = "fetchUsers";
+export const LOGIN = "login";
 

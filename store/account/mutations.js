@@ -7,7 +7,10 @@ export default {
   setUserId(state, userId) {
     Vue.set(state, "userId", userId);
   },
-  fetchUsers(state, users) {
-    Vue.set(state, "users", users);
+  setToken(state, token) {
+    Vue.set(state, "token", token);
+  },
+  setLoginStatus(state, status) {
+    Vue.set(state, "loginFailure", status);
   }
 }

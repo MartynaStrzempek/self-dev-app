@@ -11,5 +11,6 @@ export const FETCH_GOALS = "fetchGoals";
 export const SET_GOAL_IDS_ARRAY = "setGoalIdsArray";
 export const FETCH_PRISE = "fetchPrise";
 export const SET_USER_ID = "setUserId";
-export const FETCH_USERS = "fetchUsers";
 export const CLEAR_STATE = "clearState";
+export const SET_TOKEN = "setToken";
+export const SET_LOGIN_STATUS = "setLoginStatus";

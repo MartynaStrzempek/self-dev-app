@@ -35,6 +35,7 @@ export default {
     async logout() {
       await this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, false);
       await this.$store.commit(MUTATIONS.SET_USER_ID, null);
+      await this.$store.commit(MUTATIONS.SET_TOKEN, null);
       await this.$store.commit(MUTATIONS.CLEAR_STATE);
       setTimeout(() => this.$router.push('/'), 1000);
     }

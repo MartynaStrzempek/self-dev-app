@@ -11,8 +11,7 @@
       <input type="password" placeholder="Repeat Password" v-model="form.repeatedPassword" class="input" v-if="!isLogin" required/>
       <p class="validation-text" v-if="!isFormFilled">Every input must be filled!</p>
       <p class="validation-text" v-if="!arePasswordsMatch">Passwords do not match. Check them again!</p>
-      <p class="validation-text" v-if="!isLoginCorrect">I'm sorry, user with this login doesn't exist</p>
-      <p class="validation-text" v-if="!isPasswordCorrect">Password is'nt correct!</p>
+      <p class="validation-text" v-if="loginFailure">I'm sorry, credentials are wrong</p>
       <el-button type="primary" @click="confirm" class="button">{{ buttonText }}</el-button>
     </el-form>
   </div>
@@ -43,11 +42,8 @@ export default {
     title: String,
   },
   computed: {
-    targetUser() {
-      return this.$store.getters["getTargetUser"](this.form.login);
-    },
-    users() {
-      return this.$store.getters["getUsers"];
+    loginFailure() {
+      return this.$store.getters["getLoginStatus"];
     }
   },
   methods: {
@@ -55,24 +51,10 @@ export default {
       let canConfirm = this.validate();
       if (canConfirm) {
         if (this.isLogin) {
-          await this.$store.dispatch(ACTIONS.FETCH_USERS);
-          if (this.users) {
-            if (this.targetUser) {
-              this.isLoginCorrect = true;
-              if (this.targetUser.password === this.form.password) {
-                this.isPasswordCorrect = true;
-                this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, true);
-                this.$store.commit(MUTATIONS.SET_USER_ID, this.targetUser.id);
-                setTimeout(() => this.$router.push('goals'), 500);
-              }
-              else {
-                this.isPasswordCorrect = false;
-              }
-            }
-            else {
-              this.isLoginCorrect = false;
-            }
-          }
+          await this.$store.dispatch(ACTIONS.LOGIN, {
+            login: this.form.login,
+            password: this.form.password
+          });
         }
         else {
           await this.$store.dispatch(ACTIONS.REGISTER_USER, {

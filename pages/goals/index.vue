@@ -56,7 +56,7 @@ import CalendarChart from '../../components/calendarChart/calendarChart.vue';
 import Modal from '../../components/modal/modal.vue';
 import PresentResultBox from '../../components/presentResultBox/presentResultBox.vue';
 import * as ACTIONS from '../../store/actionTypes';
-import {token} from "../../plugins/axios"
+
 export default {
   data() {
     return {
@@ -141,7 +141,6 @@ export default {
     }
   },
   async mounted() {
-    // console.log("token localstorage", token);
     await this.$store.dispatch(ACTIONS.FETCH_GOALS, { userId: this.userId, isFirstFetch: true });
 
     this.goals.map(goal => {

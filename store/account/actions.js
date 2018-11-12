@@ -1,5 +1,7 @@
 import * as MUTATIONS from '../mutationTypes';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
+
 export default {
   setLoginState({ commit }, payload) {
     commit(MUTATIONS.SET_LOGIN_STATE, payload);
@@ -7,7 +9,9 @@ export default {
   registerUser({ commit }, payload) {
     axios
       .post(`http://localhost:8080/user`, {
-        ...payload
+        login: payload.login,
+        password: CryptoJS.SHA256(payload.password).toString(CryptoJS.enc.Base64),
+        email: payload.email
       }, {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('token')}`
@@ -19,7 +23,8 @@ export default {
   login({ commit }, payload) {
     axios
       .post("http://localhost:8080/login", {
-        ...payload
+        login: payload.login,
+        password: CryptoJS.SHA256(payload.password).toString(CryptoJS.enc.Base64)
       }, {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('token')}`

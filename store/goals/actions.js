@@ -12,7 +12,7 @@ export default {
     const userId = store().getters["getUserId"];
     // console.log("local", localStorage.getItem('token'))
     await axios
-      .post(`http://localhost:8080/user/${userId}/goal`, {
+      .post(`http://localhost:8080/users/${userId}/goals`, {
         description: goal.reward,
         score: goal.scoreForReward,
         goalName: goal.goalName,
@@ -38,7 +38,7 @@ export default {
       goalId = payload.goalId;
 
     await axios
-      .post(`http://localhost:8080/user/${userId}/goal/${goalId}/result`, {
+      .post(`http://localhost:8080/users/${userId}/goals/${goalId}/results`, {
         status: payload.status,
         date: payload.resultDate,
         note: payload.note
@@ -55,7 +55,7 @@ export default {
   },
   async fetchGoals({ commit, dispatch }, payload) {
     await axios
-      .get(`http://localhost:8080/user/${payload.userId}/goals`, {
+      .get(`http://localhost:8080/users/${payload.userId}/goals`, {
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('token')}`
         }
@@ -96,7 +96,7 @@ export default {
     const { resultId, goalId, updatedResult } = payload;
     const userId = store().getters["getUserId"];
     axios
-      .put(`http://localhost:8080/result/${resultId}`, {
+      .put(`http://localhost:8080/results/${resultId}`, {
         ...updatedResult
       }, {
         headers: {
@@ -110,7 +110,7 @@ export default {
     const userId = store().getters["getUserId"];
     const { goalId, priseId, editedGoal } = payload;
     axios
-      .put(`http://localhost:8080/user/${userId}/goal/${goalId}`, {
+      .put(`http://localhost:8080/users/${userId}/goals/${goalId}`, {
         ...editedGoal, priseId
       }, {
         headers: {

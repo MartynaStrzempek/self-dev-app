@@ -51,7 +51,8 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
-    '@nuxtjs/bootstrap-vue'
+    '@nuxtjs/bootstrap-vue',
+    '@nuxtjs/pwa'
   ],
   /*
   ** Axios module configuration

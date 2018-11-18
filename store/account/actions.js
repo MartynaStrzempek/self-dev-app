@@ -8,14 +8,10 @@ export default {
   },
   registerUser({ commit }, payload) {
     axios
-      .post(`http://localhost:8080/user`, {
+      .post(`http://localhost:8080/users`, {
         login: payload.login,
         password: CryptoJS.SHA256(payload.password).toString(CryptoJS.enc.Base64),
         email: payload.email
-      }, {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem('token')}`
-        }
       })
       .then(response => commit(MUTATIONS.SET_USER_ID, response.data.id))
       .catch(error => console.log(error))
@@ -25,10 +21,6 @@ export default {
       .post("http://localhost:8080/login", {
         login: payload.login,
         password: CryptoJS.SHA256(payload.password).toString(CryptoJS.enc.Base64)
-      }, {
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem('token')}`
-        }
       })
       .then(response => {
         console.log("login", response.data);

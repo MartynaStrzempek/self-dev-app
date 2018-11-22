@@ -5,13 +5,13 @@
       <p class="input-text hidden">Login</p>
       <input placeholder="Login" v-model="form.login" class="input" required>
       <input type="email" placeholder="E-mail" v-model="form.email" class="input" v-if="!isLogin" required>
-      <p class="input-text hidden">Password</p>
-      <input type="password" placeholder="Password" v-model="form.password" class="input" required>
-      <p class="input-text hidden">Repeat Password</p>
-      <input type="password" placeholder="Repeat Password" v-model="form.repeatedPassword" class="input" v-if="!isLogin" required/>
-      <p class="validation-text" v-if="!isFormFilled">Every input must be filled!</p>
-      <p class="validation-text" v-if="!arePasswordsMatch">Passwords do not match. Check them again!</p>
-      <p class="validation-text" v-if="loginFailure">I'm sorry, credentials are wrong</p>
+      <p class="input-text hidden">Hasło</p>
+      <input type="password" placeholder="Hasło" v-model="form.password" class="input" required>
+      <p class="input-text hidden">Powtórz hasło</p>
+      <input type="password" placeholder="Powtórz hasło" v-model="form.repeatedPassword" class="input" v-if="!isLogin" required/>
+      <p class="validation-text" v-if="!isFormFilled">Każde pole musi być wypełnione!</p>
+      <p class="validation-text" v-if="!arePasswordsMatch">Hasła nie pasują do siebie. Sprawdź je jeszcze raz!</p>
+      <p class="validation-text" v-if="loginFailure">Podane dane są nieprawidłowe :(</p>
       <el-button type="primary" @click="confirm" class="button">{{ buttonText }}</el-button>
     </el-form>
   </div>
@@ -64,7 +64,7 @@ export default {
           });
           await this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, true);
           this.$message({
-            message: 'Congratulations, You just have registered!',
+            message: 'Gratulacje, właśnie się zarejestrowałeś!',
             type: 'success'
           });
           setTimeout(() => this.$router.push('goals'), 500);
@@ -87,8 +87,8 @@ export default {
     }
   },
   mounted() {
-    if (this.isLogin) this.buttonText = "Login";
-    else this.buttonText = "Register";
+    if (this.isLogin) this.buttonText = "Zaloguj";
+    else this.buttonText = "Zarejestruj";
   }
 }
 </script>

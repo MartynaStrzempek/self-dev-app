@@ -2,22 +2,22 @@
   <el-dialog :title="title" :visible.sync="visibility">
     <el-form :model="form">
       <el-form-item>
-        <el-input v-model="form.goalName" placeholder="Fill name of goal..." autofocus></el-input>
+        <el-input v-model="form.goalName" placeholder="Wprowadź nazwę celu..." autofocus></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="form.subGoalName" placeholder="Fill name of subgoal..."></el-input>
+        <el-input v-model="form.subGoalName" placeholder="Wprowadź nazwę celu awaryjnego..."></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="form.reward" placeholder="Fill name of reward..."></el-input>
+        <el-input v-model="form.reward" placeholder="Wprowadź nazwę nagrody..."></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="form.scoreForReward" placeholder="Fill score after which You want to get a reward..."></el-input>
+        <el-input v-model="form.scoreForReward" placeholder="Wprowadź liczbę punktów, po której chcesz uzyskać nagrodę..."></el-input>
       </el-form-item>
     </el-form>
-    <p class="validation-text" :class="{ hidden: isFilled }">To add or edit the goal You must fill in name of the goal and name of the subgoal</p>
+    <p class="validation-text" :class="{ hidden: isFilled }">Aby dodać lub edytować cel musisz wprowadzić nazwę celu głównego oraz celu awaryjnego</p>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="cancel">Cancel</el-button>
-      <el-button type="primary" @click="save">Save</el-button>
+      <el-button @click="cancel">Zamknij</el-button>
+      <el-button type="primary" @click="save">Zapisz</el-button>
     </span>
   </el-dialog>
 </template>

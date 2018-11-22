@@ -1,9 +1,9 @@
 <template>
   <div class="radio-buttons">
-    <el-radio class="radio-button" v-model="status" label="done">Done</el-radio>
-    <el-radio class="radio-button" v-model="status" label="subgoalDone">Subgoal done</el-radio>
-    <el-radio class="radio-button" v-model="status" label="notDone">Not done</el-radio>
-    <el-radio class="radio-button" v-model="status" label="unchecked">I don't remember</el-radio>
+    <el-radio class="radio-button" v-model="status" label="done">Sukces</el-radio>
+    <el-radio class="radio-button" v-model="status" label="subgoalDone">Cel awaryjny</el-radio>
+    <el-radio class="radio-button" v-model="status" label="notDone">Porażka</el-radio>
+    <el-radio class="radio-button" v-model="status" label="unchecked">Nie pamiętam</el-radio>
   </div>
 </template>
 

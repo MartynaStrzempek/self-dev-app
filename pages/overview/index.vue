@@ -9,9 +9,9 @@
           <div class="goal-name">
             {{ goal.goalName }}
             <div class="goal-details">
-              <p>subgoal: <b>{{ goal.subGoalName }}</b></p>
-              <p>reward: <b>{{ goal.reward }}</b></p>
-              <p>point to achieve: <b>{{ goal.scoreForReward }}</b></p>
+              <p>cel awaryjny: <b>{{ goal.subGoalName }}</b></p>
+              <p>nagroda: <b>{{ goal.reward }}</b></p>
+              <p>punkty do zdobycia: <b>{{ goal.scoreForReward }}</b></p>
               <!--<p>present points: <b>{{ goal.presentScore }}</b></p>-->
             </div>
           </div>

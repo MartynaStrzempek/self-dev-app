@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       dayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      monthNames: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paż', 'Lis', 'Gru'],
       dayIds: [0, 1, 2, 3, 4, 5, 6],
       days: [],
       clickedDayId: null,

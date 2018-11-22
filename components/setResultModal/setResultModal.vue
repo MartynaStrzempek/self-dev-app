@@ -3,20 +3,20 @@
     <div class="wrapper">
       <div class="title">Select result for this day:</div>
       <div class="radio-buttons">
-        <el-radio class="radio-button" v-model="status" label="done">Done</el-radio>
-        <el-radio class="radio-button" v-model="status" label="partiallyDone">Subgoal done</el-radio>
-        <el-radio class="radio-button" v-model="status" label="notDone">Not done</el-radio>
-        <el-radio class="radio-button" v-model="status" label="unchecked">I don't remember</el-radio>
+        <el-radio class="radio-button" v-model="status" label="done">Sukces</el-radio>
+        <el-radio class="radio-button" v-model="status" label="partiallyDone">Cel awaryjny</el-radio>
+        <el-radio class="radio-button" v-model="status" label="notDone">Porażka</el-radio>
+        <el-radio class="radio-button" v-model="status" label="unchecked">Nie pamiętam</el-radio>
       </div>
     </div>
-    <p class="validation-text" :class="{ hidden: isMarked }">To add the result You have to check something!</p>
+    <p class="validation-text" :class="{ hidden: isMarked }">Aby dodać status musisz zaznaczyć jedną z opcji!</p>
     <div class="textarea-wrapper" :class="{ hidden: isGoalDone }">
-      <p class="question">Why haven't You done that today?</p>
+      <p class="question">Dlaczego dziś się nie udało?</p>
       <textarea class="textarea" v-model="note" cols="77" rows="5"></textarea>
     </div>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="cancel">Cancel</el-button>
-      <el-button type="primary" @click="save">Save</el-button>
+      <el-button @click="cancel">Zamknij</el-button>
+      <el-button type="primary" @click="save">Zapisz</el-button>
     </span>
   </el-dialog>
 </template>

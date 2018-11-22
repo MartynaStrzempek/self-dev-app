@@ -1,12 +1,12 @@
 <template>
   <el-dialog :visible.sync="visibility">
     <div class="textarea-wrapper">
-      <p class="question">Why haven't You done that today?</p>
+      <p class="question">Dlaczego dziś się nie udało?</p>
       <textarea class="textarea" v-model="note" cols="77" rows="5"></textarea>
     </div>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="cancel">Cancel</el-button>
-      <el-button type="primary" @click="save">Save</el-button>
+      <el-button @click="cancel">Zamknij</el-button>
+      <el-button type="primary" @click="save">Zapisz</el-button>
     </span>
   </el-dialog>
 </template>

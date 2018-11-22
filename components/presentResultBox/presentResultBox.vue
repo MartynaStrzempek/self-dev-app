@@ -2,10 +2,10 @@
   <div class="box">
     <div class="title">Select today's result</div>
     <div class="radio-buttons">
-      <el-radio class="radio-button" v-model="presentStatus" label="done">Done</el-radio>
-      <el-radio class="radio-button" v-model="presentStatus" label="partiallyDone">Subgoal done</el-radio>
-      <el-radio class="radio-button" v-model="presentStatus" label="notDone">Not done</el-radio>
-      <el-radio class="radio-button" v-model="presentStatus" label="unchecked">I don't remember</el-radio>
+      <el-radio class="radio-button" v-model="presentStatus" label="done">Sukces</el-radio>
+      <el-radio class="radio-button" v-model="presentStatus" label="partiallyDone">Cel awaryjny</el-radio>
+      <el-radio class="radio-button" v-model="presentStatus" label="notDone">Porażka</el-radio>
+      <el-radio class="radio-button" v-model="presentStatus" label="unchecked">Nie pamiętam</el-radio>
     </div>
     <note-modal :visibility="noteModalVisibility" :goal-id="goalId" :result-id="resultId" :status-id="statusId"/>
   </div>

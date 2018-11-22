@@ -108,7 +108,6 @@ export default {
       this.activeMonthArray.map((activeMonth, index) => {
         this.activeMonthArray[index] = this.monthFullNames[activeMonth.getMonth()];
       })
-      console.log(this.activeMonthArray)
     }
   },
   mounted() {

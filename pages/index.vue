@@ -3,7 +3,7 @@
     <div class="first-section section">
       <div class="container">
         <div class="row d-flex justify-content-end">
-          <div class="image-text col-lg-6">Lorem ipsum dolor sit amet, vis aeterno aliquip te, per vero antiopam ad.</div>
+          <div class="image-text col-lg-6">Z nami osiągniesz szczyty swoich możliwości</div>
         </div>
       </div>
     </div>
@@ -13,16 +13,19 @@
     <div class="second-section section">
       <div class="container">
         <div class="row d-flex justify-content-center">
-          <!--<div class="first-title col-lg-12">Lorem ipsum dolor sit amet</div>-->
-          <!--<div class="feature col-lg-4">-->
-            <!--<i class="fas fa-frog"></i>-->
-          <!--</div>-->
-          <!--<div class="feature col-lg-4">-->
-            <!--<i class="fas fa-frog"></i>-->
-          <!--</div>-->
-          <!--<div class="feature col-lg-4">-->
-            <!--<i class="fas fa-frog"></i>-->
-          <!--</div>-->
+          <div class="first-title col-lg-12">Self Dev App to aplikacja wspomagająca rozwój osobisty</div>
+          <div class="feature col-lg-4">
+            <i class="fas fa-clipboard-list goals"></i>
+            <p>Dodawaj cele główne i awaryjne</p>
+          </div>
+          <div class="feature col-lg-4">
+            <i class="fas fa-check statuses"></i>
+            <p>Zaznaczaj postępy oraz zapisuj notatki</p>
+          </div>
+          <div class="feature col-lg-4">
+            <i class="fas fa-star awards"></i>
+            <p>Wyznaczaj nagrody</p>
+          </div>
         </div>
       </div>
     </div>
@@ -30,14 +33,21 @@
     <div class="third-section section">
       <div class="container">
         <div class="row d-flex justify-content-end">
-          <div class="image-text col-lg-6">Lorem ipsum dolor sit amet, vis aeterno aliquip te, per vero antiopam ad.</div>
+          <div class="image-text col-lg-6">Podążaj drogą do lepszej przyszłości</div>
         </div>
       </div>
       <div class="white-left-triangle section"></div>
       <div class="white-absolute-right-triangle section"></div>
     </div>
 
-    <div class="fourth-section section"></div>
+    <div class="fourth-section section">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="second-title col-lg-12">Zarejestruj się już teraz!!!</div>
+          <div><el-button class="registration-btn" type="danger">Rejestracja</el-button></div>
+        </div>
+      </div>
+    </div>
 
     <div class="footer">
       <p class="copyrights">Copyright &copy; 2018 Martyna Strzempek</p>
@@ -91,26 +101,58 @@ export default {
   height: 500px;
   .image-text {
     color: white;
-    font-size: 250%;
+    font-size: 300%;
     font-weight: bold;
     display: flex;
     align-items: center;
     text-align: center;
   }
   .first-title {
-    font-size: 250%;
+    font-size: 200%;
     letter-spacing: 1px;
     font-weight: bold;
-    color: rgba(254, 92, 92, 0.6);
-    font-family: Niconne, cursive;
+    /*color: rgba(254, 92, 92, 0.6);*/
+    color: #7f828b;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 40px;
+    height: 50px;
+  }
+  .second-title {
+    text-align: center;
+    padding-top: 100px;
+    font-size: 300%;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: #7f828b;
+  }
+  .registration-btn {
+    width: 300px;
+    height: 60px;
   }
   .feature {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     i {
       font-size: 500%;
+    }
+    .goals {
       color: rgb(64, 158, 255);
+    }
+    .statuses {
+      color: rgba(254, 92, 92, 0.6);
+    }
+    .awards {
+      color: rgba(255, 165, 0, 0.6);
+    }
+    p {
+      padding-top: 15px;
+      color: #7f828b;
+      font-weight: bold;
+      width: 50%;
+      margin: 0;
     }
   }
 }

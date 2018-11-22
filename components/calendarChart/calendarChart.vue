@@ -4,6 +4,9 @@
       :visibility="setResultModalVisibility"
       :goal-id="goal.id"
       :result-date="clickedDayId"/>
+    <div class="month-names">
+      <p v-for="(activeMonth, index) in activeMonthArray" :key="index">{{ activeMonth }}</p>
+    </div>
     <table id="table">
       <tr v-for="(dayId, rowId) in dayIds" :key="rowId" class="row">
         <td
@@ -30,9 +33,11 @@ export default {
     return {
       dayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       monthNames: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paż', 'Lis', 'Gru'],
+      monthFullNames: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
       dayIds: [0, 1, 2, 3, 4, 5, 6],
       days: [],
       clickedDayId: null,
+      activeMonthArray: []
     }
   },
   computed: {
@@ -95,7 +100,15 @@ export default {
         displayDate = `${dayBefore.getDate()} ${this.monthNames[dayBefore.getMonth()]} ${dayBefore.getFullYear()}`;
 
         this.days.push({id, dayId, displayDay, displayDate});
+        if (displayDay === 1) this.activeMonthArray.push(dayBefore)
       }
+      this.setActiveMonthNames();
+    },
+    setActiveMonthNames() {
+      this.activeMonthArray.map((activeMonth, index) => {
+        this.activeMonthArray[index] = this.monthFullNames[activeMonth.getMonth()];
+      })
+      console.log(this.activeMonthArray)
     }
   },
   mounted() {
@@ -106,6 +119,16 @@ export default {
 
 <style scoped lang="scss">
 .container {
+  .month-names {
+    display: flex;
+    justify-content: space-around;
+    p {
+      font-size: 90%;
+      font-weight: bold;
+      color: #7f828b;
+      margin-bottom: 5px;
+    }
+  }
   table {
     td {
       min-width: 30px;

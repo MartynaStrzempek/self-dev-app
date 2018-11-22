@@ -27,5 +27,8 @@ export default {
     Vue.set(state, "goalIdsArray", []);
     Vue.set(state, "prises", []);
     Vue.set(state, "goals", []);
+  },
+  setActiveMonths(state, payload) {
+    Vue.set(state, "activeMonths", payload);
   }
 }

@@ -5,7 +5,7 @@
       :goal-id="goal.id"
       :result-date="clickedDayId"/>
     <div class="month-names">
-      <p v-for="(activeMonth, index) in activeMonthArray" :key="index">{{ activeMonth }}</p>
+      <p v-for="(activeMonth, index) in activeMonths" :key="index">{{ activeMonth.name }}</p>
     </div>
     <table id="table">
       <tr v-for="(dayId, rowId) in dayIds" :key="rowId" class="row">
@@ -28,6 +28,7 @@
 <script>
 import SetResultModal from "../../components/setResultModal/setResultModal.vue";
 import * as ACTIONS from "../../store/actionTypes";
+import * as MUTATIONS from "../../store/mutationTypes";
 export default {
   data() {
     return {
@@ -36,14 +37,16 @@ export default {
       monthFullNames: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
       dayIds: [0, 1, 2, 3, 4, 5, 6],
       days: [],
-      clickedDayId: null,
-      activeMonthArray: []
+      clickedDayId: null
     }
   },
   computed: {
     setResultModalVisibility() {
       return this.$store.getters["getSetResultModalVisibility"];
     },
+    activeMonths() {
+      return this.$store.getters["getActiveMonths"];
+    }
   },
   props: {
     goal: Object,
@@ -77,6 +80,7 @@ export default {
     getMonths() {
       const today = new Date();
       let dayBefore, day, month, year, id, dayId, displayDay, displayDate, amount = this.dayAmount;
+      const activeMonths = [];
       for (let i = 1; i <= 6; i++) {
         if (this.dayNames.indexOf(new Date(today - 86400000 * amount).toString().substr(0, 3)) !== 0) {
           amount++
@@ -100,14 +104,13 @@ export default {
         displayDate = `${dayBefore.getDate()} ${this.monthNames[dayBefore.getMonth()]} ${dayBefore.getFullYear()}`;
 
         this.days.push({id, dayId, displayDay, displayDate});
-        if (displayDay === 1) this.activeMonthArray.push(dayBefore)
+        if (displayDay === 1) activeMonths.push(dayBefore.getMonth())
       }
-      this.setActiveMonthNames();
-    },
-    setActiveMonthNames() {
-      this.activeMonthArray.map((activeMonth, index) => {
-        this.activeMonthArray[index] = this.monthFullNames[activeMonth.getMonth()];
-      })
+
+      activeMonths.map((activeMonth, index) => {
+        activeMonths[index] = { id: activeMonth, name: this.monthFullNames[activeMonth] }
+      });
+      this.$store.commit(MUTATIONS.SET_ACTIVE_MONTHS, activeMonths);
     }
   },
   mounted() {

@@ -44,7 +44,15 @@
           :goalId="currentGoalId"/>
       </div>
       <div class="statistic-chart col-lg-4">
-        <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="200" color="rgb(248, 160, 2)"></el-progress>
+        <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="300" color="rgb(248, 160, 2)"></el-progress>
+      </div>
+    </div>
+    <div class="row statistics d-flex justify-content-lg-around align-items-center">
+      <div class="col-lg-6">
+        <pie-chart></pie-chart>
+      </div>
+      <div class="col-lg-6">
+        <column-chart></column-chart>
       </div>
     </div>
   </div>
@@ -54,6 +62,8 @@
 import CalendarChart from '../../components/calendarChart/calendarChart.vue';
 import Modal from '../../components/modal/modal.vue';
 import PresentResultBox from '../../components/presentResultBox/presentResultBox.vue';
+import PieChart from '../../components/pieChart/pieChart.vue';
+import ColumnChart from '../../components/columnChart/columnChart.vue';
 import * as ACTIONS from '../../store/actionTypes';
 
 export default {
@@ -65,7 +75,9 @@ export default {
   components: {
     CalendarChart,
     Modal,
-    PresentResultBox
+    PresentResultBox,
+    PieChart,
+    ColumnChart
   },
   computed: {
     modalVisibility() {
@@ -192,7 +204,15 @@ export default {
   }
 }
 .bottom {
-  margin-bottom: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  .statistic-chart {
+    display: flex;
+    justify-content: center;
+  }
+}
+.statistics {
+  display: flex;
 }
 .disabled {
   color: #dbe1ec;

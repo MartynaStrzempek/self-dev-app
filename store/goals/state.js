@@ -3,4 +3,5 @@ export default {
   goalIdsArray: [],
   goals: [],
   prises: [],
+  activeMonths: []
 }

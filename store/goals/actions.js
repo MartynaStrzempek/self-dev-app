@@ -69,7 +69,6 @@ export default {
         if (payload.isFirstFetch) commit(MUTATIONS.SET_CURRENT_GOAL_ID, goals[0].id);
         else dispatch(ACTIONS.SET_PRESENT_SCORE, payload.goalId);
         commit(MUTATIONS.SET_GOAL_IDS_ARRAY, setGoalIdsArray(goals));
-        console.log(goals)
         return goals;
       })
       .then(goals => dispatch(ACTIONS.FETCH_PRISE, goals))

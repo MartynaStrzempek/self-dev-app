@@ -44,7 +44,9 @@
       <div class="container">
         <div class="row d-flex justify-content-center">
           <div class="second-title col-lg-12">Zarejestruj się już teraz!!!</div>
-          <div><el-button class="registration-btn" type="danger">Rejestracja</el-button></div>
+          <div><el-button class="registration-btn" type="danger">
+            <nuxt-link class="btn-link" to="/signup">Rejestracja</nuxt-link>
+          </el-button></div>
         </div>
       </div>
     </div>
@@ -128,6 +130,10 @@ export default {
   .registration-btn {
     width: 300px;
     height: 60px;
+    .btn-link {
+      text-decoration: none;
+      color: white;
+    }
   }
   .feature {
     text-align: center;

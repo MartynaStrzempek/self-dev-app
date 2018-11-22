@@ -1,0 +1,61 @@
+<template>
+  <div id="pie-chart" style="width: 530px; height: 500px;"></div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      successStatus: 0,
+      failureStatus: 0,
+      partialSuccessStatus: 0
+    }
+  },
+  computed: {
+    currentGoalId() {
+      return this.$store.getters["getCurrentGoalId"];
+    },
+    results() {
+      return this.$store.getters["getTargetGoal"](this.currentGoalId).Results;
+    }
+  },
+  methods: {
+    countStatuses() {
+      console.log("res", this.results)
+      this.results.map(result => {
+        if (result.StatusId === 1) this.successStatus += 1;
+        else if (result.StatusId === 4) this.partialSuccessStatus += 1;
+        else if (result.StatusId === 2) this.failureStatus += 1;
+      })
+    }
+  },
+  mounted() {
+    const vue = this;
+
+    this.countStatuses();
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+
+      const data = google.visualization.arrayToDataTable([
+        ['Status', 'percent from all'],
+        ['Sukces', vue.successStatus],
+        ['Porażka', vue.failureStatus],
+        ['Cel awaryjny', vue.partialSuccessStatus]
+      ]);
+
+      const options = {
+        legend: {
+          position: 'none'
+        }
+      };
+
+      const chart = new google.visualization.PieChart(document.getElementById('pie-chart'));
+
+      chart.draw(data, options);
+    }
+  }
+}
+</script>

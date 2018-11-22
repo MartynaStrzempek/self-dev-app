@@ -14,3 +14,4 @@ export const SET_USER_ID = "setUserId";
 export const CLEAR_STATE = "clearState";
 export const SET_TOKEN = "setToken";
 export const SET_LOGIN_STATUS = "setLoginStatus";
+export const SET_ACTIVE_MONTHS = "setActiveMonths";

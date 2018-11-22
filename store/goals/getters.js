@@ -16,4 +16,5 @@ export default {
   },
   getGoalIdsArray: state => state.goalIdsArray,
   getTargetPrise: state => goalId => state.prises.length > 0 ? state.prises.find(prise => prise.goalId === goalId) : "",
+  getActiveMonths: state => state.activeMonths
 }

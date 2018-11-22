@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <div class="title">Select today's result</div>
+    <div class="title">Zaznacz dzisiejszy status</div>
     <div class="radio-buttons">
       <el-radio class="radio-button" v-model="presentStatus" label="done">Sukces</el-radio>
       <el-radio class="radio-button" v-model="presentStatus" label="partiallyDone">Cel awaryjny</el-radio>

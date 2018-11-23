@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     countStatuses() {
-      console.log(this.firstMonthId, this.secondMonthId)
       this.results.map(result => {
         if (result.date.slice(5, 7) === this.firstMonthId) {
           console.log(result.date.slice(5, 7))
@@ -59,7 +58,6 @@ export default {
 
       this.firstMonth.name = this.activeMonths[this.activeMonths.length - 3].name;
       this.secondMonth.name = this.activeMonths[this.activeMonths.length - 2].name;
-      console.log(this.firstMonthId, this.secondMonthId, this.firstMonth, this.secondMonth)
     }
   },
   mounted() {
@@ -78,9 +76,7 @@ export default {
       ]);
 
       const options = {
-        chart: {
-
-        },
+        colors: ['#99FFB3', '#FFC566', '#FF5F60'],
         legend: {
           position: 'none',
           alignment: 'center'

@@ -47,6 +47,7 @@ export default {
       ]);
 
       const options = {
+        colors: ['#99FFB3', '#FF5F60', '#FFC566'],
         legend: {
           position: 'none'
         }

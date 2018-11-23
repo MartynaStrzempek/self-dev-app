@@ -27,8 +27,11 @@ export default {
     currentGoalId() {
       return this.$store.getters["getCurrentGoalId"];
     },
+    goal() {
+      return this.$store.getters["getTargetGoal"](this.currentGoalId);
+    },
     results() {
-      return this.$store.getters["getTargetGoal"](this.currentGoalId).Results;
+      return this.goal ? this.goal.Results : [];
     },
     firstMonthId() {
       let id = this.activeMonths[this.activeMonths.length - 3].id + 1;

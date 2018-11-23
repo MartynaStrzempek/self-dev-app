@@ -7,7 +7,12 @@
       :edited-goal="currentGoal"/>
     <div class="row header">
       <!--Prise: {{ prise }}-->
-      <div class="goal-name col-sm-9">
+      <div class="col-sm-1">
+        <el-button class="overview-btn">
+          <nuxt-link to="/overview" class="overview-link">Zobacz wszystkie</nuxt-link>
+        </el-button>
+      </div>
+      <div class="goal-name col-sm-8">
         <transition name="fade" mode="out-in">
           <h1 v-if="goalIdsArray[index] === currentGoalId" v-for="(goal, index) in goals" :key="index">{{ goal.goalName }}</h1>
         </transition>
@@ -165,6 +170,15 @@ export default {
 <style scoped lang="scss">
 .header {
   padding-top: 60px;
+  .overview-btn {
+    &:hover {
+      color: rgb(0, 159, 255);
+    }
+    .overview-link {
+      text-decoration: none;
+      color: #47494e;
+    }
+  }
   .goal-name {
     display: flex;
     justify-content: center;
@@ -214,6 +228,7 @@ export default {
 }
 .statistics {
   display: flex;
+  padding-bottom: 50px;
 }
 .disabled {
   color: #dbe1ec;

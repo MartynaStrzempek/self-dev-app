@@ -78,6 +78,10 @@ export default {
   background-color: white;
 }
 
+.fourth-section {
+  height: 540px;
+}
+
 .third-section {
   background: rgba(255, 165, 0, 0.6) url(../assets/images/p1.jpg) fixed center top;
   background-blend-mode: multiply;

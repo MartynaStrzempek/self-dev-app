@@ -50,11 +50,6 @@
         </div>
       </div>
     </div>
-
-    <div class="footer">
-      <p class="copyrights">Copyright &copy; 2018 Martyna Strzempek</p>
-      <div class="white-left-triangle section"></div>
-    </div>
   </div>
 </template>
 
@@ -113,7 +108,6 @@ export default {
     font-size: 200%;
     letter-spacing: 1px;
     font-weight: bold;
-    /*color: rgba(254, 92, 92, 0.6);*/
     color: #7f828b;
     text-align: center;
     margin-top: 40px;
@@ -160,22 +154,6 @@ export default {
       width: 50%;
       margin: 0;
     }
-  }
-}
-.footer {
-  width: 100vw;
-  height: 130px;
-  background-color: rgb(64, 158, 255);
-  margin-top: -40px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .copyrights {
-    text-align: center;
-    margin: 0;
-    padding-top: 10px;
-    color: white;
   }
 }
 .white-right-triangle {

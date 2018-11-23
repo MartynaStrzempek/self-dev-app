@@ -44,7 +44,7 @@
           :goalId="currentGoalId"/>
       </div>
       <div class="statistic-chart col-lg-4">
-        <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="300" color="rgb(248, 160, 2)"></el-progress>
+        <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="280" color="rgb(248, 160, 2)"></el-progress>
       </div>
     </div>
     <div class="row statistics d-flex justify-content-lg-around align-items-center">

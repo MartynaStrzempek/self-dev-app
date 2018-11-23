@@ -1,8 +1,11 @@
 <template>
   <div>
     <navigation />
-    <!--<div class="triangle"></div>-->
     <nuxt/>
+    <div class="footer">
+      <p class="copyrights">Copyright &copy; 2018 Martyna Strzempek</p>
+      <div class="white-left-triangle section"></div>
+    </div>
   </div>
 </template>
 
@@ -15,7 +18,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 html
 {
   font-family: 'Montserrat', sans-serif;
@@ -36,11 +39,33 @@ body {
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
 }
-.triangle {
+.footer {
+  width: 100vw;
+  height: 130px;
+  background-color: rgb(64, 158, 255);
+  margin-top: -40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .copyrights {
+    text-align: center;
+    margin: 0;
+    padding-top: 10px;
+    color: white;
+  }
+}
+.section {
+  width: 100vw;
+  height: 500px;
+}
+.white-left-triangle {
   width: 0;
   height: 0;
-  border-top: 100px solid red;
-  border-right: 250vw solid transparent;
+  border-top: 40px solid white;
+  border-right: 100vw solid transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
-
 </style>

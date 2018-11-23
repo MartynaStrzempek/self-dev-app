@@ -4,7 +4,7 @@
       :visibility="setResultModalVisibility"
       :goal-id="goal.id"
       :result-date="clickedDayId"/>
-    <div class="month-names">
+    <div class="month-names" v-if="isMainChart">
       <p v-for="(activeMonth, index) in activeMonths" :key="index">{{ activeMonth.name }}</p>
     </div>
     <table id="table">
@@ -50,7 +50,8 @@ export default {
   },
   props: {
     goal: Object,
-    dayAmount: Number
+    dayAmount: Number,
+    isMainChart: Boolean
   },
   components: {
     SetResultModal,

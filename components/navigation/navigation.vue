@@ -39,7 +39,7 @@ export default {
       localStorage.setItem('token', null);
       console.log("logout", localStorage.getItem('token'))
       await this.$store.commit(MUTATIONS.CLEAR_STATE);
-      setTimeout(() => this.$router.push('/'), 1000);
+      setTimeout(() => this.$router.push('/'), 300);
     }
   }
 }

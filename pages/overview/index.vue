@@ -1,48 +1,59 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div
-        class="calendar-wrapper col-lg-3"
-        v-for="(goal, index) in goals"
-        :key="index">
-        <div class="goal-info">
-          <div class="goal-name">
-            {{ goal.goalName }}
-            <div class="goal-details">
-              <p>cel awaryjny: <b>{{ goal.subGoalName }}</b></p>
-              <p>nagroda: <b>{{ goal.reward }}</b></p>
-              <p>punkty do zdobycia: <b>{{ goal.scoreForReward }}</b></p>
-              <!--<p>present points: <b>{{ goal.presentScore }}</b></p>-->
+  <div>
+    <div class="container">
+      <div class="row">
+        <div
+          class="calendar-wrapper col-lg-3"
+          v-for="(goal, index) in goals"
+          :key="index">
+          <div class="goal-info">
+            <div class="goal-name">
+              {{ goal.goalName }}
+              <div class="goal-details">
+                <p>cel awaryjny: <b>{{ goal.subgoalName }}</b></p>
+                <p>nagroda: <b>{{ getPrise(goal.id).description }}</b></p>
+                <p>punkty do zdobycia: <b>{{ getPrise(goal.id).score }}</b></p>
+                <!--<p>present points: <b>{{ goal.presentScore }}</b></p>-->
+              </div>
             </div>
           </div>
+          <calendar-chart
+            :goal="goal"
+            :day-amount="38"
+            class="calendar"
+            :is-main-chart="false"/>
         </div>
-        <calendar-chart
-          :goal="goal"
-          :day-amount="38"
-          class="calendar"/>
       </div>
     </div>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 import CalendarChart from "../../components/calendarChart/calendarChart.vue";
-import * as ACTIONS from "../../store/actionTypes.js";
+import AppFooter from "../../components/footer/footer.vue";
+
 export default {
   computed: {
     goals() {
       return this.$store.getters["getGoals"];
-    }
+    },
   },
   components: {
     CalendarChart,
+    AppFooter
+  },
+  methods: {
+    getPrise(goalId) {
+      return this.$store.getters["getTargetPrise"](goalId);
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
 .row {
-  padding-top: 40px;
+  padding-bottom: 160px;
   .calendar-wrapper {
     margin-top: 80px;
     .goal-info {

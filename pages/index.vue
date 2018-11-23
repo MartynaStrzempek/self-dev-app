@@ -50,15 +50,21 @@
         </div>
       </div>
     </div>
+
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import AppFooter from '../components/footer/footer.vue';
 export default {
   mounted() {
     AOS.init();
+  },
+  components: {
+    AppFooter
   }
 }
 </script>

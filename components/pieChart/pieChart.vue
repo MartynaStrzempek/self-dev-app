@@ -19,7 +19,7 @@ export default {
       return this.$store.getters["getTargetGoal"](this.currentGoalId);
     },
     results() {
-      return this.goal ? this.goal.Results: [];
+      return this.goal ? this.goal.Results : [];
     }
   },
   methods: {

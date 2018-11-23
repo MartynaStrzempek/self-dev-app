@@ -1,66 +1,70 @@
 <template>
-  <div class="container">
-    <modal
-      :visibility="modalVisibility"
-      :title="modalTitle"
-      :editing="editing"
-      :edited-goal="currentGoal"/>
-    <div class="row header">
-      <!--Prise: {{ prise }}-->
-      <div class="col-sm-1">
-        <el-button class="overview-btn">
-          <nuxt-link to="/overview" class="overview-link">Zobacz wszystkie</nuxt-link>
-        </el-button>
+  <div>
+    <div class="container">
+      <modal
+        :visibility="modalVisibility"
+        :title="modalTitle"
+        :editing="editing"
+        :edited-goal="currentGoal"/>
+      <div class="row header">
+        <!--Prise: {{ prise }}-->
+        <div class="col-sm-1">
+          <el-button class="overview-btn">
+            <nuxt-link to="/overview" class="overview-link">Zobacz wszystkie</nuxt-link>
+          </el-button>
+        </div>
+        <div class="goal-name col-sm-8">
+          <transition name="fade" mode="out-in">
+            <h1 v-if="goalIdsArray[index] === currentGoalId" v-for="(goal, index) in goals" :key="index">{{ goal.goalName }}</h1>
+          </transition>
+        </div>
+        <div class="buttons col-sm-3">
+          <el-button class="add-button" type="primary" icon="el-icon-plus" circle @click="addGoal"></el-button>
+          <el-button class="edit-button" icon="el-icon-edit" circle @click="editGoal"></el-button>
+          <el-button class="delete-button" icon="el-icon-delete" circle @click="deleteGoal"></el-button>
+        </div>
       </div>
-      <div class="goal-name col-sm-8">
-        <transition name="fade" mode="out-in">
-          <h1 v-if="goalIdsArray[index] === currentGoalId" v-for="(goal, index) in goals" :key="index">{{ goal.goalName }}</h1>
-        </transition>
+      <div class="row middle-area">
+        <div class="left-arrow col-lg-1" @click="previousGoal">
+          <i class="fas fa-angle-left"></i>
+        </div>
+        <div class="calendar col-lg-10">
+          <transition name="fade" mode="out-in">
+            <calendar-chart
+              v-if="goalIdsArray[index] === currentGoalId"
+              v-for="(goal, index) in goals"
+              :key="index"
+              :goal="currentGoal"
+              :day-amount="180"
+              :is-main-chart="true"/>
+          </transition>
+        </div>
+        <div class="right-arrow col-lg-1" @click="nextGoal">
+          <i class="fas fa-angle-right"></i>
+        </div>
       </div>
-      <div class="buttons col-sm-3">
-        <el-button class="add-button" type="primary" icon="el-icon-plus" circle @click="addGoal"></el-button>
-        <el-button class="edit-button" icon="el-icon-edit" circle @click="editGoal"></el-button>
-        <el-button class="delete-button" icon="el-icon-delete" circle @click="deleteGoal"></el-button>
-      </div>
-    </div>
-    <div class="row middle-area">
-      <div class="left-arrow col-lg-1" @click="previousGoal">
-        <i class="fas fa-angle-left"></i>
-      </div>
-      <div class="calendar col-lg-10">
-        <transition name="fade" mode="out-in">
-          <calendar-chart
+      <div class="row bottom d-flex justify-content-lg-around align-items-center">
+        <div class="present-result-box col-lg-4">
+          <present-result-box
             v-if="goalIdsArray[index] === currentGoalId"
             v-for="(goal, index) in goals"
             :key="index"
-            :goal="currentGoal"
-            :day-amount="180"/>
-        </transition>
+            :goalId="currentGoalId"/>
+        </div>
+        <div class="statistic-chart col-lg-4">
+          <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="280" color="rgb(248, 160, 2)"></el-progress>
+        </div>
       </div>
-      <div class="right-arrow col-lg-1" @click="nextGoal">
-        <i class="fas fa-angle-right"></i>
-      </div>
-    </div>
-    <div class="row bottom d-flex justify-content-lg-around align-items-center">
-      <div class="present-result-box col-lg-4">
-        <present-result-box
-          v-if="goalIdsArray[index] === currentGoalId"
-          v-for="(goal, index) in goals"
-          :key="index"
-          :goalId="currentGoalId"/>
-      </div>
-      <div class="statistic-chart col-lg-4">
-        <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="280" color="rgb(248, 160, 2)"></el-progress>
+      <div class="row statistics d-flex justify-content-lg-around align-items-center">
+        <div class="col-lg-6">
+          <pie-chart></pie-chart>
+        </div>
+        <div class="col-lg-6">
+          <column-chart></column-chart>
+        </div>
       </div>
     </div>
-    <div class="row statistics d-flex justify-content-lg-around align-items-center">
-      <div class="col-lg-6">
-        <pie-chart></pie-chart>
-      </div>
-      <div class="col-lg-6">
-        <column-chart></column-chart>
-      </div>
-    </div>
+    <app-footer></app-footer>
   </div>
 </template>
 
@@ -70,6 +74,7 @@ import Modal from '../../components/modal/modal.vue';
 import PresentResultBox from '../../components/presentResultBox/presentResultBox.vue';
 import PieChart from '../../components/pieChart/pieChart.vue';
 import ColumnChart from '../../components/columnChart/columnChart.vue';
+import AppFooter from '../../components/footer/footer.vue';
 import * as ACTIONS from '../../store/actionTypes';
 
 export default {
@@ -83,7 +88,8 @@ export default {
     Modal,
     PresentResultBox,
     PieChart,
-    ColumnChart
+    ColumnChart,
+    AppFooter
   },
   computed: {
     modalVisibility() {
@@ -228,7 +234,7 @@ export default {
 }
 .statistics {
   display: flex;
-  padding-bottom: 50px;
+  padding-bottom: 90px;
 }
 .disabled {
   color: #dbe1ec;

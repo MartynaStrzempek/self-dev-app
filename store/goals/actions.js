@@ -10,7 +10,6 @@ export default {
   },
   async addGoal({ commit, dispatch }, goal) {
     const userId = store().getters["getUserId"];
-    // console.log("local", localStorage.getItem('token'))
     await axios
       .post(`http://localhost:8080/users/${userId}/goals`, {
         description: goal.reward,
@@ -50,8 +49,8 @@ export default {
       .then(() => dispatch(ACTIONS.FETCH_GOALS, { userId: userId, isFirstFetch: false, goalId: goalId }))
       .catch(error => console.log(error))
   },
-  setPresentScore({ commit }, payload) {
-    commit(MUTATIONS.SET_PRESENT_SCORE, payload);
+  setPresentScore({ commit }, goalId) {
+    commit(MUTATIONS.SET_PRESENT_SCORE, goalId);
   },
   async fetchGoals({ commit, dispatch }, payload) {
     await axios

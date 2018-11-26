@@ -24,45 +24,50 @@
           <el-button class="delete-button" icon="el-icon-delete" circle @click="deleteGoal"></el-button>
         </div>
       </div>
-      <div class="row middle-area">
-        <div class="left-arrow col-lg-1" @click="previousGoal">
-          <i class="fas fa-angle-left"></i>
+      <template v-if="goals.length > 0">
+        <div class="row middle-area">
+          <div class="left-arrow col-lg-1" @click="previousGoal">
+            <i class="fas fa-angle-left"></i>
+          </div>
+          <div class="calendar col-lg-10">
+            <transition name="fade" mode="out-in">
+              <calendar-chart
+                v-if="goalIdsArray[index] === currentGoalId"
+                v-for="(goal, index) in goals"
+                :key="index"
+                :goal="currentGoal"
+                :day-amount="180"
+                :is-main-chart="true"/>
+            </transition>
+          </div>
+          <div class="right-arrow col-lg-1" @click="nextGoal">
+            <i class="fas fa-angle-right"></i>
+          </div>
         </div>
-        <div class="calendar col-lg-10">
-          <transition name="fade" mode="out-in">
-            <calendar-chart
+        <div class="row bottom d-flex justify-content-lg-around align-items-center">
+          <div class="present-result-box col-lg-4">
+            <present-result-box
               v-if="goalIdsArray[index] === currentGoalId"
               v-for="(goal, index) in goals"
               :key="index"
-              :goal="currentGoal"
-              :day-amount="180"
-              :is-main-chart="true"/>
-          </transition>
+              :goalId="currentGoalId"/>
+          </div>
+          <div class="statistic-chart col-lg-4">
+            <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="280" color="rgb(248, 160, 2)"></el-progress>
+          </div>
         </div>
-        <div class="right-arrow col-lg-1" @click="nextGoal">
-          <i class="fas fa-angle-right"></i>
+        <div class="row statistics d-flex justify-content-lg-around align-items-center">
+          <div class="col-lg-6">
+            <all-statuses-pie-chart></all-statuses-pie-chart>
+          </div>
+          <div class="col-lg-6">
+            <two-months-column-chart></two-months-column-chart>
+          </div>
         </div>
-      </div>
-      <div class="row bottom d-flex justify-content-lg-around align-items-center">
-        <div class="present-result-box col-lg-4">
-          <present-result-box
-            v-if="goalIdsArray[index] === currentGoalId"
-            v-for="(goal, index) in goals"
-            :key="index"
-            :goalId="currentGoalId"/>
-        </div>
-        <div class="statistic-chart col-lg-4">
-          <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="280" color="rgb(248, 160, 2)"></el-progress>
-        </div>
-      </div>
-      <div class="row statistics d-flex justify-content-lg-around align-items-center">
-        <div class="col-lg-6">
-          <pie-chart></pie-chart>
-        </div>
-        <div class="col-lg-6">
-          <column-chart></column-chart>
-        </div>
-      </div>
+      </template>
+      <template v-else>
+        <info-new-goal></info-new-goal>
+      </template>
     </div>
     <app-footer></app-footer>
   </div>
@@ -72,9 +77,10 @@
 import CalendarChart from '../../components/calendarChart/calendarChart.vue';
 import Modal from '../../components/modal/modal.vue';
 import PresentResultBox from '../../components/presentResultBox/presentResultBox.vue';
-import PieChart from '../../components/pieChart/pieChart.vue';
-import ColumnChart from '../../components/columnChart/columnChart.vue';
+import AllStatusesPieChart from '../../components/allStatusesPieChart/allStatusesPieChart.vue';
+import TwoMonthsColumnChart from '../../components/twoMonthsColumnChart/twoMonthsColumnChart.vue';
 import AppFooter from '../../components/footer/footer.vue';
+import InfoNewGoal from '../../components/InfoNewGoal/infoNewGoal.vue';
 import * as ACTIONS from '../../store/actionTypes';
 
 export default {
@@ -87,9 +93,10 @@ export default {
     CalendarChart,
     Modal,
     PresentResultBox,
-    PieChart,
-    ColumnChart,
-    AppFooter
+    AllStatusesPieChart,
+    TwoMonthsColumnChart,
+    AppFooter,
+    InfoNewGoal
   },
   computed: {
     modalVisibility() {

@@ -2,10 +2,8 @@
   <div>
     <p class="title">{{ title }}</p>
     <el-form class="form">
-      <p class="input-text hidden">Login</p>
       <input placeholder="Login" v-model="form.login" class="input" required>
       <input type="email" placeholder="E-mail" v-model="form.email" class="input" v-if="!isLogin" required>
-      <p class="input-text hidden">Hasło</p>
       <input type="password" placeholder="Hasło" v-model="form.password" class="input" required>
       <p class="input-text hidden">Powtórz hasło</p>
       <input type="password" placeholder="Powtórz hasło" v-model="form.repeatedPassword" class="input" v-if="!isLogin" required/>
@@ -63,11 +61,12 @@ export default {
             password: this.form.password
           });
           await this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, true);
-          this.$message({
-            message: 'Gratulacje, właśnie się zarejestrowałeś!',
-            type: 'success'
+          this.$alert('Gratulacje, właśnie się zarejestrowałeś! Teraz możesz zalogować się i w pełni korzystać z aplikacji.', '', {
+            confirmButtonText: 'OK',
+            callback: () => {
+              setTimeout(() => this.$router.push('login'), 100);
+            }
           });
-          setTimeout(() => this.$router.push('goals'), 500);
         }
       }
     },

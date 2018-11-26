@@ -61,8 +61,10 @@ export default {
       return this.$store.getters["getTargetNote"](goalId, resultId);
     },
     openModal(dayId){
-      this.clickedDayId = dayId;
-      this.$store.dispatch(ACTIONS.OPEN_SET_RESULT_MODAL);
+      if (this.isMainChart) {
+        this.clickedDayId = dayId;
+        this.$store.dispatch(ACTIONS.OPEN_SET_RESULT_MODAL);
+      }
     },
     style(id) {
       let bg;

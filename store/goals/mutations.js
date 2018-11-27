@@ -6,12 +6,13 @@ export default {
     Vue.set(state, "currentGoalId", id)
   },
   setPresentScore(state, goalId) {
-   setTimeout(() => {
+   // setTimeout(() => {
      let prise = state.prises.find(prise => prise.goalId === goalId);
      let goal = state.goals.find(goal => goal.id === goalId);
      // console.log("state", state.goals, goalId, goal)
+    console.log("prsentScore", countPoints(goal.Results))
      Vue.set(prise, "presentScore", countPoints(goal.Results));
-   }, 100)
+   // }, 5000)
   },
   fetchGoals(state, goals) {
     Vue.set(state, "goals", goals);

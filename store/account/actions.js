@@ -13,7 +13,7 @@ export default {
         password: CryptoJS.SHA256(payload.password).toString(CryptoJS.enc.Base64),
         email: payload.email
       })
-      .then(response => commit(MUTATIONS.SET_USER_ID, response.data.id))
+      .then(response => console.log(response))
       .catch(error => console.log(error))
   },
   login({ commit }, payload) {
@@ -27,7 +27,7 @@ export default {
         // commit(MUTATIONS.SET_TOKEN, response.data.token);
         localStorage.setItem('token', response.data.token);
         // console.log("local", localStorage.getItem('token'))
-        commit(MUTATIONS.SET_USER_ID, response.data.userId);
+        commit(MUTATIONS.SET_USER, response.data.user);
       })
       .then(() => {
         commit(MUTATIONS.SET_LOGIN_STATE, true);

@@ -59,6 +59,7 @@ export default {
   methods: {
     async save(){
       if (this.form.goalName.length > 0 && this.form.subGoalName.length > 0) {
+        this.$store.dispatch(ACTIONS.CLOSE_MODAL);
         if (this.editing) await this.$store.dispatch(ACTIONS.UPDATE_GOAL, {
           editedGoal: {
             description: this.form.reward,
@@ -70,15 +71,7 @@ export default {
           priseId: this.editedGoal.PriseId
         });
         else await this.$store.dispatch(ACTIONS.ADD_GOAL, this.form);
-
-        this.$store.dispatch(ACTIONS.CLOSE_MODAL);
         this.isFilled = true;
-        // this.form = {
-        //   goalName: '',
-        //   subGoalName: '',
-        //   reward: '',
-        //   scoreForReward: null
-        // };
       }
       else {
         this.isFilled = false;

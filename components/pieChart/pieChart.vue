@@ -12,7 +12,6 @@ export default {
       const vue = this;
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
-      console.log(...this.data)
       function drawChart() {
         const data = google.visualization.arrayToDataTable([
           ...vue.data

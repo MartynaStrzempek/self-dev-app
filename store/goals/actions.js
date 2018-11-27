@@ -23,6 +23,7 @@ export default {
       })
       .then(response => {
         let lastGoalId = response.data.id;
+        console.log("addGoal", response)
         dispatch(ACTIONS.FETCH_GOALS, { userId });
         return lastGoalId;
       })
@@ -62,18 +63,20 @@ export default {
       .then(data => {
         let goals = data.data;
         commit(MUTATIONS.FETCH_GOALS, goals);
+        console.log("fetchGoals", goals)
+        return goals;
+      })
+      .then(goals => {
+        dispatch(ACTIONS.FETCH_PRISE, goals);
         return goals;
       })
       .then(goals => {
         if (payload.isFirstFetch) commit(MUTATIONS.SET_CURRENT_GOAL_ID, goals[0].id);
-        else dispatch(ACTIONS.SET_PRESENT_SCORE, payload.goalId);
         commit(MUTATIONS.SET_GOAL_IDS_ARRAY, setGoalIdsArray(goals));
-        return goals;
       })
-      .then(goals => dispatch(ACTIONS.FETCH_PRISE, goals))
       .catch(error => console.log(error));
   },
-  fetchPrise({ commit }, goals) {
+  fetchPrise({ commit, dispatch }, goals) {
     goals.map(goal => {
       let priseId = goal.PriseId;
       axios
@@ -83,8 +86,12 @@ export default {
           }
         })
         .then (data => {
-          // console.log(data.data)
+          console.log("fetchPrise", data.data)
           commit(MUTATIONS.FETCH_PRISE, { ...data.data, goalId: goal.id })
+          return goal.id;
+        })
+        .then((goalId) => {
+          dispatch(ACTIONS.SET_PRESENT_SCORE, goalId);
         })
         .catch(error => console.log(error))
     });

@@ -33,13 +33,12 @@ export default {
   },
   methods: {
     async logout() {
+      setTimeout(() => this.$router.push('/'), 50);
       await this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, false);
-      await this.$store.commit(MUTATIONS.SET_USER_ID, null);
+      await this.$store.commit(MUTATIONS.SET_USER, null);
       // await this.$store.commit(MUTATIONS.SET_TOKEN, null);
       localStorage.setItem('token', null);
-      console.log("logout", localStorage.getItem('token'))
       await this.$store.commit(MUTATIONS.CLEAR_STATE);
-      setTimeout(() => this.$router.push('/'), 300);
     }
   }
 }

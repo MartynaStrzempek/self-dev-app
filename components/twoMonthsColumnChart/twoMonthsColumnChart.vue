@@ -57,13 +57,11 @@ export default {
     countStatuses() {
       this.results.map(result => {
         if (result.date.slice(5, 7) === this.firstMonthId) {
-          console.log(result.date.slice(5, 7))
           if (result.StatusId === 1) this.firstMonth.successStatus += 1;
           else if (result.StatusId === 4) this.firstMonth.partialSuccessStatus += 1;
           else if (result.StatusId === 2) this.firstMonth.failureStatus += 1;
         }
         else if (result.date.slice(5, 7) === this.secondMonthId) {
-          console.log(result.date.slice(5, 7))
           if (result.StatusId === 1) this.secondMonth.successStatus += 1;
           else if (result.StatusId === 4) this.secondMonth.partialSuccessStatus += 1;
           else if (result.StatusId === 2) this.secondMonth.failureStatus += 1;

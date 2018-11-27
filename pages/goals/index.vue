@@ -8,14 +8,14 @@
         :edited-goal="currentGoal"/>
       <div class="row header">
         <!--Prise: {{ prise }}-->
-        <div class="col-sm-1">
+        <div class="col-sm-2">
           <el-button class="overview-btn">
             <nuxt-link to="/overview" class="overview-link">Zobacz wszystkie</nuxt-link>
           </el-button>
         </div>
-        <div class="goal-name col-sm-8">
+        <div class="goal-name col-sm-6">
           <transition name="fade" mode="out-in">
-            <h1 v-if="goalIdsArray[index] === currentGoalId" v-for="(goal, index) in goals" :key="index">{{ goal.goalName }}</h1>
+            <h2 v-if="goalIdsArray[index] === currentGoalId" v-for="(goal, index) in goals" :key="index">{{ goal.goalName }}</h2>
           </transition>
         </div>
         <div class="buttons col-sm-3">
@@ -53,7 +53,7 @@
               :goalId="currentGoalId"/>
           </div>
           <div class="statistic-chart col-lg-4">
-            <el-progress type="circle" :percentage="getPercentagePresentScore()" :width="280" color="rgb(248, 160, 2)"></el-progress>
+            <el-progress type="circle" :percentage="percentagePresentScore" :width="280" color="rgb(248, 160, 2)"></el-progress>
           </div>
         </div>
         <div class="row statistics d-flex justify-content-lg-around align-items-center">
@@ -87,6 +87,7 @@ export default {
   data() {
     return {
       editing: false,
+      percentagePresentScore: 0
     }
   },
   components: {
@@ -128,7 +129,9 @@ export default {
     },
     goalIdToSetAsCurrent() {
       let currentGoalIndex = this.goalIdsArray.indexOf(this.currentGoalId);
-      return this.goalIdsArray[currentGoalIndex - 1];
+      return currentGoalIndex === 0
+        ? this.goalIdsArray[currentGoalIndex + 1]
+        : this.goalIdsArray[currentGoalIndex - 1]
     },
     prise() {
       return this.$store.getters["getTargetPrise"](this.currentGoalId);
@@ -143,15 +146,8 @@ export default {
     },
     getPercentagePresentScore() {
       const percentagePresentScore = this.prise ? Math.round(this.prise.presentScore / this.prise.score * 100) : 0;
-      if (percentagePresentScore >= 100) {
-        this.$notify({
-          title: 'Score!',
-          message: 'Congratulations! You have just achieved as many points as You wanted! Now You can change your goal or reward',
-          type: 'success',
-          duration: 0
-        });
-      }
-      return percentagePresentScore ? percentagePresentScore : 0;
+//      console.log("score", percentagePresentScore, this.prise.presentScore, this.prise.score)
+      this.percentagePresentScore = percentagePresentScore ? percentagePresentScore : 0;
     },
     nextGoal() {
       const index = this.goalIdsArray.indexOf(this.currentGoalId);
@@ -171,11 +167,17 @@ export default {
     }
   },
   async mounted() {
+    this.getPercentagePresentScore();
     await this.$store.dispatch(ACTIONS.FETCH_GOALS, { userId: this.userId, isFirstFetch: true });
 
     this.goals.map(goal => {
       this.$store.dispatch(ACTIONS.SET_PRESENT_SCORE, goal.id);
     });
+  },
+  watch: {
+    prise() {
+      this.getPercentagePresentScore();
+    }
   }
 }
 </script>
@@ -188,6 +190,9 @@ export default {
       color: rgb(0, 159, 255);
     }
     .overview-link {
+      display: block;
+      height: 100%;
+      width: 100%;
       text-decoration: none;
       color: #47494e;
     }

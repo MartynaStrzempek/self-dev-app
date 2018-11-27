@@ -1,6 +1,5 @@
 export default {
   getLoginState: state => state.isLogedIn,
-  getUserId: state => state.userId,
-  getToken: state => state.token,
+  getUserId: state => state.user.id,
   getLoginStatus: state => state.loginFailure,
 }

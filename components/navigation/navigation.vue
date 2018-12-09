@@ -36,6 +36,7 @@ export default {
       setTimeout(() => this.$router.push('/'), 50);
       await this.$store.dispatch(ACTIONS.SET_LOGIN_STATE, false);
       await this.$store.commit(MUTATIONS.SET_USER, null);
+      await this.$store.commit(MUTATIONS.SET_LOGIN_STATUS, false);
       // await this.$store.commit(MUTATIONS.SET_TOKEN, null);
       localStorage.setItem('token', null);
       await this.$store.commit(MUTATIONS.CLEAR_STATE);
